@@ -1,0 +1,55 @@
+---
+title: "Atividade 4"
+author: "Jônatha Reis"
+date: "2023-04-13"
+output: html_document
+---
+
+## Extraindo dados do GBIF (Global Biodiversity Information Facility)
+
+### Exemplo: Finding Dori
+
+# Pacotes necessários
+```{r setup, include=FALSE}
+library(tidyverse)
+library(rgbif)
+
+```
+
+# checar funcoes
+```{r}
+?occ_data
+```
+
+# baixar ocorrencias
+```{r primeiro, echo=TRUE}
+dori_gbif <- occ_data(scientificName = "Paracanthurus hepatus", 
+                      hasCoordinate = TRUE,
+                      hasGeospatialIssue=FALSE)
+
+# dimensoes
+dim(dori_gbif)
+
+
+
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
