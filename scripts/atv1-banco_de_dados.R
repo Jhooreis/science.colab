@@ -8,7 +8,7 @@ library(lubridate)
 
 #################### Importação e organização tabela Victor ################
 
-tab_VC <- read.csv("docs/atividade1_Vitor_Figueira_Arueira.csv", sep = ";")
+tab_VC <- read.csv("data/atividade1_Vitor_Figueira_Arueira.csv", sep = ";")
 
 ## Renomeado as colunas
 names(tab_VC)[1:10] <- c("amostra", "site", "latitude", "longitude", "data", "spp", "tamanho_petala", "largura_petala", "tamanho_sepala", "largura_sepala")

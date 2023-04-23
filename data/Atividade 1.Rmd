@@ -1,0 +1,163 @@
+---
+title: "Atividade 01 e 02"
+author: "Jônatha Reis"
+date: "2023-04-22"
+output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{=html}
+<style>
+body{
+text-align:justify}
+</style>
+```
+# Atividade 01: Reorganizando e padronizando uma tabela de dados no R.
+
+```{r, include=FALSE}
+# Pacotes necessário para essa atividade:
+
+library(tidyverse)
+library(dplyr)
+library(lubridate)
+```
+
+## Para chegarmos a uma tabela única houve a necessidade de padronização de diversas arquivos separados. Assim, os primeiros passos desse arquivo demostram quais os procedimentos executados para cada sub-tabela.
+
+### Importando, organizando e padronizando a tabela 1
+
+```{r, include=FALSE}
+tab_VC <- read.csv("data/atividade1_Vitor_Figueira_Arueira.csv", sep = ";")
+
+getwd()
+
+# Renomeado as colunas
+names(tab_VC)[1:10] <- c("amostra", "site", "latitude", "longitude", "data", "spp", "tamanho_petala", "largura_petala", "tamanho_sepala", "largura_sepala")
+
+# Reordenando as colunas
+attach(tab_VC)
+tab_VC2 = cbind(amostra, spp, data,latitude, longitude, tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
+
+```
+
+### Importando, organizando e padronizando a tabela 2
+
+```{r, include=FALSE} 
+tab_Lorr <- read.csv("data/Atividade1_Lorrana.csv", sep = ";")
+
+# Renomeado as colunas
+names(tab_Lorr)[1:10] <- c("amostra", "site", "latitude", "longitude",
+"data", "spp", "tamanho_petala", "largura_petala", "tamanho_sepala",
+"largura_sepala")
+
+# Reordenando as colunas
+attach(tab_Lorr) 
+tab_Lorr2 = cbind(amostra, spp, data,latitude,longitude, tamanho_petala, largura_petala, tamanho_sepala,largura_sepala)
+```
+
+### Importando, organizando e padronizando a tabela 3
+
+```{r, include=FALSE} 
+tab_MA <- read.csv("data/atividade1_MARINA.csv", sep = ";")
+
+## Renomeado as colunas
+names(tab_MA)[1:10] <- c("amostra", "site", "latitude", "longitude",
+"data", "spp", "tamanho_petala", "largura_petala", "tamanho_sepala",
+"largura_sepala")
+
+## Reordenando as colunas
+attach(tab_MA) 
+tab_MA2 = cbind(amostra, spp, data,latitude, longitude,
+tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
+
+```
+
+### Importando, organizando e padronizando a tabela 4
+
+```{r, include=FALSE}
+tab_HS <- read.csv("data/atividade1_HenriqueSimfrone.csv", sep = ";")
+
+## Renomeado as colunas 
+names(tab_HS)[1:10] <- c("amostra", "spp","tamanho_sepala","largura_sepala", "tamanho_petala", "largura_petala","site", "longitude", "latitude","data")
+
+## Reordenando as colunas
+attach(tab_HS)
+tab_HS2 = cbind(amostra, spp, data,latitude, longitude,
+tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
+
+```
+
+### Importando, organizando e padronizando a tabela 5
+
+```{r, include=FALSE}
+tab_MB <- read.csv("data/atividade1_MARIANA-BURATO.csv", sep = ";")
+
+## Renomeado as colunas
+names(tab_MB)[1:10] <- c("amostra", "site", "latitude", "longitude",
+"data", "spp", "tamanho_petala", "largura_petala", "tamanho_sepala",
+"largura_sepala")
+
+## Reordenando as colunas
+attach(tab_MB) 
+tab_MB2 = cbind(amostra, spp, data,latitude, longitude, tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
+
+```
+
+### Importando, organizando e padronizando a tabela 6
+
+```{r, include=FALSE}
+tab_JR <- read.csv("data/atividade1_JonathaR.csv", sep = ";")
+
+## Renomeado as colunas
+names(tab_JR)[1:10] <- c("amostra", "spp", "tamanho_sepala","largura_sepala", "tamanho_petala", "largura_petala", "site","latitude",
+"longitude", "data")
+
+## Reordenando as colunas
+attach(tab_JR) 
+tab_JR2 = cbind(amostra, spp, data,latitude, longitude,tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
+```
+
+## Após padronização das seis tabelas, inicamos a união de todas e um único arquivo.
+
+```{r, include=FALSE}
+dados <- rbind(tab_HS2, tab_Lorr2, tab_MA2, tab_MB2, tab_VC2, tab_JR2)
+```
+
+## Transformando a matriz "dados" em um data.frame.
+
+```{r, include=FALSE}
+dados <- as.data.frame(dados)
+```
+
+## A padronização dos nomes de espécies, assim como o formato da data foi realizado no arquivo único. 
+
+```{r, include=FALSE}
+# Nomes das espécies
+dados$spp[dados$spp == "IRIS_VERSICOLOR"] <- "iris_versicolor"
+dados$spp[dados$spp == "IRIS_VIRGINICA"] <- "iris_virginica"
+dados$spp[dados$spp == "IRIS_SETOSA"] <- "iris_setosa"
+```
+
+```{r, include=FALSE}
+# Formato das datas
+dados$data[dados$data == "01/12/1929"] <- "01_12_1929"
+dados$data[dados$data == "13/02/1930"] <- "13_02_1930"
+dados$data[dados$data == "1929_12_01"] <- "01_12_1929"
+dados$data[dados$data == "1930_02_13"] <- "13_02_1930"
+
+# Convertendo a coluna data com classe "factor" para "date"; padronizando o formato para YYY-MM-DD
+
+dados$data <- dmy(dados$data)
+is.Date(dados$data) 
+class(dados$data)
+```
+
+## Ordenando a tabela pela coluna "spp"
+
+```{r, include=FALSE}
+dados<-dados[order(dados$spp),]
+
+View(dados)
+```
