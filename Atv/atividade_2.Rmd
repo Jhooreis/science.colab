@@ -28,7 +28,7 @@ require(taxize)
 ### Todos os prodecimentos que seguem nessa atividade foram executados utilizando a tabela produzida na atividade 1 ("dados_unidos"), geradas a partir da união de diversas sub-tabelas. 
 
 ```{r, include=TRUE, results='markup'}
-iris <- read.csv("dados_unidos.csv", header = T, sep = ";")
+iris <- read.csv("data/dados_unidos.csv", header = T, sep = ";")
 iris$X <- NULL
 lapply(iris, unique)
 str(iris)
@@ -152,6 +152,21 @@ occurrences %>%
   filter(is.na(eventID))
 ```
 
+## A exportação das figuras e tabelas em formato 
+
+### Escrevendo as matrizes como arquivos de texto
+```{r, include=TRUE}
+rm(list = setdiff(ls(), c("eventCore", "occurrences", "eMOF")))
+
+files <- list(eventCore, occurrences, eMOF) 
+data_names <- c("DF_eventCore","DF_occ","DF_eMOF")
+dir.create("Dwc_Files")
 
 
+for(i in 1:length(files)) {
+  path <- paste0(getwd(), "/", "DwC_Files")
+  write.csv(files[[i]], paste0(path, "/", data_names[i], ".csv"))
+}
+```
 
+### As tabelas em formato .csv geradas nessa atividade podem ser consultdas na "DwC_Files" no repositório https://github.com/Jhooreis/science.colab

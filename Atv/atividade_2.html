@@ -399,7 +399,7 @@ text-align:justify}
 <h3>Todos os prodecimentos que seguem nessa atividade foram executados
 utilizando a tabela produzida na atividade 1 (“dados_unidos”), geradas a
 partir da união de diversas sub-tabelas.</h3>
-<pre class="r"><code>iris &lt;- read.csv(&quot;dados_unidos.csv&quot;, header = T, sep = &quot;;&quot;)
+<pre class="r"><code>iris &lt;- read.csv(&quot;data/dados_unidos.csv&quot;, header = T, sep = &quot;;&quot;)
 iris$X &lt;- NULL
 lapply(iris, unique)</code></pre>
 <pre><code>## $amostra
@@ -607,6 +607,26 @@ eMOF %&gt;%filter(is.na(eventID))</code></pre>
 ## [4] scientificNameID     recordedBy           taxonRank           
 ## [7] organismQuantityType basisOfRecord       
 ## &lt;0 linhas&gt; (ou row.names de comprimento 0)</code></pre>
+</div>
+<div id="a-exportação-das-figuras-e-tabelas-em-formato" class="section level2">
+<h2>A exportação das figuras e tabelas em formato</h2>
+<div id="escrevendo-as-matrizes-como-arquivos-de-texto" class="section level3">
+<h3>Escrevendo as matrizes como arquivos de texto</h3>
+<pre class="r"><code>rm(list = setdiff(ls(), c(&quot;eventCore&quot;, &quot;occurrences&quot;, &quot;eMOF&quot;)))
+
+files &lt;- list(eventCore, occurrences, eMOF) 
+data_names &lt;- c(&quot;DF_eventCore&quot;,&quot;DF_occ&quot;,&quot;DF_eMOF&quot;)
+dir.create(&quot;Dwc_Files&quot;)</code></pre>
+<pre><code>## Warning in dir.create(&quot;Dwc_Files&quot;): &#39;Dwc_Files&#39; já existe</code></pre>
+<pre class="r"><code>for(i in 1:length(files)) {
+  path &lt;- paste0(getwd(), &quot;/&quot;, &quot;DwC_Files&quot;)
+  write.csv(files[[i]], paste0(path, &quot;/&quot;, data_names[i], &quot;.csv&quot;))
+}</code></pre>
+</div>
+<div id="as-tabelas-em-formato-.csv-geradas-nessa-atividade-podem-ser-consultdas-na-dwc_files-no-repositório-httpsgithub.comjhooreisscience.colab" class="section level3">
+<h3>As tabelas em formato .csv geradas nessa atividade podem ser
+consultdas na “DwC_Files” no repositório <a href="https://github.com/Jhooreis/science.colab" class="uri">https://github.com/Jhooreis/science.colab</a></h3>
+</div>
 </div>
 
 
