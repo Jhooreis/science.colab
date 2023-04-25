@@ -1,0 +1,157 @@
+---
+title: "Atividade 2"
+author: "Jônatha Reis"
+date: "2023-04-23"
+output: html_document
+---
+```{=html}
+<style>
+body{
+text-align:justify}
+</style>
+```
+
+
+
+## Pacotes necessários 
+
+```{r}
+require(dplyr)
+require(tidyr)
+require(ggplot2)
+require(validate)
+require(taxize)
+
+```
+##  Criando arquivos no sistema eMOF
+
+### Todos os prodecimentos que seguem nessa atividade foram executados utilizando a tabela produzida na atividade 1 ("dados_unidos"), geradas a partir da união de diversas sub-tabelas. 
+
+```{r, include=TRUE, results='markup'}
+iris <- read.csv("dados_unidos.csv", header = T, sep = ";")
+iris$X <- NULL
+lapply(iris, unique)
+str(iris)
+```
+
+## Inspeção visual da distribuição dos valores numéricos.
+```{r, results='hide'}
+iris %>% 
+  select(spp, tamanho_petala:largura_sepala) %>% 
+  pivot_longer(cols = -spp, names_to = "variavel", values_to = "valores") %>% 
+  ggplot(aes(x = valores, fill = spp)) +
+    geom_histogram() +
+    facet_wrap(~ variavel, scales = 'free_x') +
+    theme_classic() +
+  theme(legend.position = "bottom") +
+    labs(x = "tamanho (mm)") +
+    scale_fill_discrete(
+      expression(bold("spp:")),
+      labels = c(expression(italic("Iris setosa")), 
+                 expression(italic("Iris versicolor")), 
+                 expression(italic("Iris virginica"))))
+
+```
+
+## Observano a variação dos dados 
+```{r, include=TRUE}
+rules <- validator(in_range(latitude, min = -90, max = 90),
+                   in_range(latitude, min = -180, max = 180),
+                   is.character(site),
+                   is.numeric(date),
+                   all_complete(iris))
+
+out   <- confront(iris, rules)
+summary(out)
+
+```
+
+```{r, include=TRUE}
+plot(out)
+```
+## Validando o nome das epécies
+```{r, include=TRUE}
+spp <- iris %>% 
+  distinct(spp) %>% 
+  pull() %>% 
+  c("Iris murchosa", .) %>% # inserimos uma espécie fictícia para teste
+  get_tsn() %>% 
+  data.frame() %>% 
+  bind_cols(spp = iris %>% 
+              distinct(spp) %>% 
+              pull() %>% 
+              c("Iris murchosa", .))
+```
+
+## Manipulando os dados
+```{r, include=TRUE}
+
+iris_1 <- iris %>% 
+  dplyr::mutate(eventID = paste(site, data, sep = "_"), # create indexing fields 
+                occurrenceID = paste(site, data, amostra, sep = "_")) %>% 
+  left_join(spp %>% 
+              select(spp, uri)) %>% # add species unique identifier
+  dplyr::rename(decimalLongitude = longitude, # rename fields according to DwC 
+                decimalLatitude = latitude,
+                eventDate = data,
+                scientificName = spp,
+                scientificNameID = uri) %>% 
+  mutate(geodeticDatum = "WGS84", # and add complimentary fields
+         verbatimCoordinateSystem = "decimal degrees",
+         georeferenceProtocol = "Random coordinates obtained from Google Earth",
+         locality = "Gaspe Peninsula",
+         recordedBy = "Edgar Anderson",
+         taxonRank = "spp",
+         organismQuantityType = "individuals",
+         basisOfRecord = "Human observation")
+
+```
+
+## Com os campos adicionados na planilha iniciamos a construção das três matrizes necessárias para inserir os dados em repositórios baseados em ocorrências e dados acessórios como o GBIF.
+
+### Planilha de eventos 
+```{r, include=TRUE}
+eventCore <- iris_1 %>% 
+  select(eventID, eventDate, decimalLongitude, decimalLatitude, locality, site,
+         geodeticDatum, verbatimCoordinateSystem, georeferenceProtocol) %>% 
+  distinct() 
+```
+
+### Planilha de ocorrências
+```{r, include=TRUE}
+occurrences <- iris_1 %>% 
+  select(eventID, occurrenceID, scientificName, scientificNameID,
+         recordedBy, taxonRank, organismQuantityType, basisOfRecord) %>%
+  distinct() 
+```
+
+### Planilha de atributos (eMOF)
+```{r, include=TRUE}
+eMOF <- iris_1 %>% 
+  select(eventID, occurrenceID, recordedBy, tamanho_petala:largura_sepala) %>%  
+  pivot_longer(cols = tamanho_petala:largura_sepala,
+               names_to = "measurementType",
+               values_to = "measurementValue") %>% 
+  mutate(measurementUnit = "cm",
+         measurementType = plyr::mapvalues(measurementType,
+                                           from = c("tamanho_petala", "largura_petala", "tamanho_sepala", "largura_sepala"), 
+                                           to = c("tamanho petala", "largura petala", "tamanho sepala", "largura sepala")))
+```
+
+## Controle de qualidade
+```{r, include=TRUE}
+# check if all eventID matches
+setdiff(eventCore$eventID, occurrences$eventID)
+```
+
+
+```{r, include=TRUE}
+# check NA values
+eMOF %>%filter(is.na(eventID))
+occurrences %>%
+  filter(is.na(eventID))
+```
+
+
+
+
