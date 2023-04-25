@@ -26,20 +26,20 @@ library(lubridate)
 ### Importando, organizando e padronizando a tabela 1
 
 ```{r, include=TRUE}
-tab_VC <- read.csv("data/atividade1_Vitor_Figueira_Arueira.csv", sep = ";")
+tab_VC <- read.csv("atividade1_Vitor_Figueira_Arueira.csv", sep = ";")
 
 # Renomeado as colunas
 names(tab_VC)[1:10] <- c("amostra", "site", "latitude", "longitude", "data", "spp", "tamanho_petala", "largura_petala", "tamanho_sepala", "largura_sepala")
 
 # Reordenando as colunas
 attach(tab_VC)
-tab_VC2 = cbind(amostra, spp, data,latitude, longitude, tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
+tab_VC2 = cbind(amostra, spp, data,site,latitude, longitude, tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
 ```
 
 ### Importando, organizando e padronizando a tabela 2
 
 ```{r, include=TRUE} 
-tab_Lorr <- read.csv("data/Atividade1_Lorrana.csv", sep = ";")
+tab_Lorr <- read.csv("Atividade1_Lorrana.csv", sep = ";")
 
 # Renomeado as colunas
 names(tab_Lorr)[1:10] <- c("amostra", "site", "latitude", "longitude",
@@ -48,13 +48,13 @@ names(tab_Lorr)[1:10] <- c("amostra", "site", "latitude", "longitude",
 
 # Reordenando as colunas
 attach(tab_Lorr) 
-tab_Lorr2 = cbind(amostra, spp, data,latitude,longitude, tamanho_petala, largura_petala, tamanho_sepala,largura_sepala)
+tab_Lorr2 = cbind(amostra, spp, data,site,latitude,longitude, tamanho_petala, largura_petala, tamanho_sepala,largura_sepala)
 ```
 
 ### Importando, organizando e padronizando a tabela 3
 
 ```{r, include=TRUE} 
-tab_MA <- read.csv("data/atividade1_MARINA.csv", sep = ";")
+tab_MA <- read.csv("atividade1_MARINA.csv", sep = ";")
 
 ## Renomeado as colunas
 names(tab_MA)[1:10] <- c("amostra", "site", "latitude", "longitude",
@@ -63,7 +63,7 @@ names(tab_MA)[1:10] <- c("amostra", "site", "latitude", "longitude",
 
 ## Reordenando as colunas
 attach(tab_MA) 
-tab_MA2 = cbind(amostra, spp, data,latitude, longitude,
+tab_MA2 = cbind(amostra, spp, data,site,latitude, longitude,
 tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
 
 ```
@@ -71,14 +71,14 @@ tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
 ### Importando, organizando e padronizando a tabela 4
 
 ```{r, include=TRUE}
-tab_HS <- read.csv("data/atividade1_HenriqueSimfrone.csv", sep = ";")
+tab_HS <- read.csv("atividade1_HenriqueSimfrone.csv", sep = ";")
 
 ## Renomeado as colunas 
 names(tab_HS)[1:10] <- c("amostra", "spp","tamanho_sepala","largura_sepala", "tamanho_petala", "largura_petala","site", "longitude", "latitude","data")
 
 ## Reordenando as colunas
 attach(tab_HS)
-tab_HS2 = cbind(amostra, spp, data,latitude, longitude,
+tab_HS2 = cbind(amostra, spp, data,site,latitude, longitude,
 tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
 
 ```
@@ -86,7 +86,7 @@ tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
 ### Importando, organizando e padronizando a tabela 5
 
 ```{r, include=TRUE}
-tab_MB <- read.csv("data/atividade1_MARIANA-BURATO.csv", sep = ";")
+tab_MB <- read.csv("atividade1_MARIANA-BURATO.csv", sep = ";")
 
 ## Renomeado as colunas
 names(tab_MB)[1:10] <- c("amostra", "site", "latitude", "longitude",
@@ -95,14 +95,14 @@ names(tab_MB)[1:10] <- c("amostra", "site", "latitude", "longitude",
 
 ## Reordenando as colunas
 attach(tab_MB) 
-tab_MB2 = cbind(amostra, spp, data,latitude, longitude, tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
+tab_MB2 = cbind(amostra, spp, data,site,latitude, longitude, tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
 
 ```
 
 ### Importando, organizando e padronizando a tabela 6
 
 ```{r, include=TRUE}
-tab_JR <- read.csv("data/atividade1_JonathaR.csv", sep = ";")
+tab_JR <- read.csv("atividade1_JonathaR.csv", sep = ";")
 
 ## Renomeado as colunas
 names(tab_JR)[1:10] <- c("amostra", "spp", "tamanho_sepala","largura_sepala", "tamanho_petala", "largura_petala", "site","latitude",
@@ -110,7 +110,7 @@ names(tab_JR)[1:10] <- c("amostra", "spp", "tamanho_sepala","largura_sepala", "t
 
 ## Reordenando as colunas
 attach(tab_JR) 
-tab_JR2 = cbind(amostra, spp, data,latitude, longitude,tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
+tab_JR2 = cbind(amostra, spp, data,site,latitude, longitude,tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
 ```
 
 ## Após padronização das seis tabelas, inicamos a união de todas e um único arquivo.
@@ -129,10 +129,23 @@ dados <- as.data.frame(dados)
 ## A padronização dos nomes de espécies, assim como o formato da data foi realizado no arquivo único. 
 
 ```{r, include=TRUE}
-# Nomes das espécies
-dados$spp[dados$spp == "IRIS_VERSICOLOR"] <- "iris_versicolor"
-dados$spp[dados$spp == "IRIS_VIRGINICA"] <- "iris_virginica"
-dados$spp[dados$spp == "IRIS_SETOSA"] <- "iris_setosa"
+# Nomes das espécies e local 
+dados$spp[dados$spp == "IRIS_VERSICOLOR"] <- "Iris_versicolor"
+dados$spp[dados$spp == "IRIS_VIRGINICA"] <- "Iris_virginica"
+dados$spp[dados$spp == "IRIS_SETOSA"] <- "Iris_setosa"
+dados$spp[dados$spp == "iris_versicolor"] <- "Iris_versicolor"
+dados$spp[dados$spp == "iris_virginica"] <- "Iris_virginica"
+dados$spp[dados$spp == "iris_setosa"] <- "Iris_setosa"
+
+dados$site[dados$site == "S3"] <- "Site3"
+dados$site[dados$site == "S2"] <- "Site2"
+dados$site[dados$site == "S1"] <- "Site1"
+dados$site[dados$site == "site3"] <- "Site3"
+dados$site[dados$site == "site2"] <- "Site2"
+dados$site[dados$site == "site1"] <- "Site1"
+
+
+	
 ```
 
 ```{r, include=TRUE}
