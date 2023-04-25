@@ -15,7 +15,7 @@ names(tab_VC)[1:10] <- c("amostra", "site", "latitude", "longitude", "data", "sp
 
 ## Reordenando as colunas
 attach(tab_VC)
-tab_VC2 = cbind(amostra, spp, data,latitude, longitude, tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
+tab_VC2 = cbind(amostra, spp, data,site, latitude, longitude, tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
 
 view(tab_VC2)
 ################################ FIM #######################################
@@ -25,14 +25,14 @@ view(tab_VC2)
 ################### Importação e organização tabela Lorrana ################
 
 
-tab_Lorr <- read.csv("docs/Atividade1_Lorrana.csv", sep = ";")
+tab_Lorr <- read.csv("data/Atividade1_Lorrana.csv", sep = ";")
 
 ## Renomeado as colunas
 names(tab_VC)[1:10] <- c("amostra", "site", "latitude", "longitude", "data", "spp", "tamanho_petala", "largura_petala", "tamanho_sepala", "largura_sepala")
 
 ## Reordenando as colunas
 attach(tab_Lorr)
-tab_Lorr2 = cbind(amostra, spp, data,latitude, longitude, tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
+tab_Lorr2 = cbind(amostra, spp, data,site, latitude, longitude, tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
 
 view(tab_Lorr2)
 ################################ FIM #######################################
@@ -40,14 +40,14 @@ view(tab_Lorr2)
 
 #################### Importação e organização tabela Marina ################
 
-tab_MA <- read.csv("docs/atividade1_MARINA.csv", sep = ";")
+tab_MA <- read.csv("data/atividade1_MARINA.csv", sep = ";")
 
 ## Renomeado as colunas
 names(tab_MA)[1:10] <- c("amostra", "site", "latitude", "longitude", "data", "spp", "tamanho_petala", "largura_petala", "tamanho_sepala", "largura_sepala")
 
 ## Reordenando as colunas
 attach(tab_MA)
-tab_MA2 = cbind(amostra, spp, data,latitude, longitude, tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
+tab_MA2 = cbind(amostra, spp, data,site,latitude, longitude, tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
 
 view(tab_MA2)
 ################################ FIM #######################################
@@ -55,13 +55,13 @@ view(tab_MA2)
 
 ################ Importação e organização tabela Henrique ##################
 
-tab_HS <- read.csv("docs/atividade1_HenriqueSimfrone.csv", sep = ";")
+tab_HS <- read.csv("data/atividade1_HenriqueSimfrone.csv", sep = ";")
 ## Renomeado as colunas
 names(tab_HS)[1:10] <- c("amostra", "spp", "tamanho_sepala","largura_sepala", "tamanho_petala", "largura_petala", "site", "longitude", "latitude","data")
 
 ## Reordenando as colunas
 attach(tab_HS)
-tab_HS2 = cbind(amostra, spp, data,latitude, longitude, tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
+tab_HS2 = cbind(amostra, spp, data,site,latitude, longitude, tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
 
 view(tab_HS2)
 
@@ -70,27 +70,27 @@ view(tab_HS2)
 
 ################ Importação e organização tabela Mariana  ##################
 
-tab_MB <- read.csv("docs/atividade1_MARIANA-BURATO.csv", sep = ";")
+tab_MB <- read.csv("data/atividade1_MARIANA-BURATO.csv", sep = ";")
 
 ## Renomeado as colunas
 names(tab_MB)[1:10] <- c("amostra", "site", "latitude", "longitude", "data", "spp", "tamanho_petala", "largura_petala", "tamanho_sepala", "largura_sepala")
 
 ## Reordenando as colunas
 attach(tab_MB)
-tab_MB2 = cbind(amostra, spp, data,latitude, longitude, tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
+tab_MB2 = cbind(amostra, spp, data,site, latitude, longitude, tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
 
 #################################### FIM ###################################
 
 ################ Importação e organização tabela Jonatha  ##################
 
-tab_JR <- read.csv("docs/atividade1_JonathaR.csv", sep = ";")
+tab_JR <- read.csv("data/atividade1_JonathaR.csv", sep = ";")
 
 ## Renomeado as colunas
 names(tab_JR)[1:10] <- c("amostra", "spp", "tamanho_sepala", "largura_sepala", "tamanho_petala", "largura_petala", "site","latitude", "longitude", "data")
 
 ## Reordenando as colunas
 attach(tab_JR)
-tab_JR2 = cbind(amostra, spp, data,latitude, longitude, tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
+tab_JR2 = cbind(amostra, spp, data,site, latitude, longitude, tamanho_petala, largura_petala, tamanho_sepala, largura_sepala)
 
 #################################### FIM ###################################
 
@@ -103,11 +103,26 @@ dados <- rbind(tab_HS2, tab_Lorr2, tab_MA2, tab_MB2, tab_VC2, tab_JR2)
 dados <- as.data.frame(dados)
 
 
-#### Padronizando os nomes de cada espécies
+#### Padronizando os nomes de cada espécie e o local
 
-dados$spp[dados$spp == "IRIS_VERSICOLOR"] <- "iris_versicolor"
-dados$spp[dados$spp == "IRIS_VIRGINICA"] <- "iris_virginica"
-dados$spp[dados$spp == "IRIS_SETOSA"] <- "iris_setosa"
+dados$spp[dados$spp == "IRIS_VERSICOLOR"] <- "Iris versicolor"
+dados$spp[dados$spp == "IRIS_VIRGINICA"] <- "Iris virginica"
+dados$spp[dados$spp == "IRIS_SETOSA"] <- "Iris setosa"
+dados$spp[dados$spp == "iris_versicolor"] <- "Iris versicolor"
+dados$spp[dados$spp == "iris_virginica"] <- "Iris virginica"
+dados$spp[dados$spp == "iris_setosa"] <- "Iris setosa"
+dados$spp[dados$spp == "Iris_versicolor"] <- "Iris versicolor"
+dados$spp[dados$spp == "Iris_virginica"] <- "Iris virginica"
+dados$spp[dados$spp == "Iris_setosa"] <- "Iris setosa"
+
+
+dados$site[dados$site == "S3"] <- "Site3"
+dados$site[dados$site == "S2"] <- "Site2"
+dados$site[dados$site == "S1"] <- "Site1"
+dados$site[dados$site == "site3"] <- "Site3"
+dados$site[dados$site == "site2"] <- "Site2"
+dados$site[dados$site == "site1"] <- "Site1"
+
 
 #### Padronizando o formato das datas
 
@@ -124,10 +139,11 @@ class(dados$data)
 
 #### Ordenando a tabela pela coluna "spp"
 
+
 dados<-dados[order(dados$spp),]
 
 View(dados)
 
 #### Exportando o arquivo em formato .csv
 
-write.csv2(dados, "dados_unidosR.csv")
+write.csv2(dados, "dados_unidos.csv")
