@@ -1,30 +1,285 @@
 ---
-title: "Untitled"
+title: "Trabalho final"
 author: "Jônatha Reis"
-date: "2023-04-22"
+date: "2023-04-26"
 output: html_document
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{=html}
+<style>
+body{
+text-align:justify}
+</style>
 ```
 
-## R Markdown
+#### Nessa atividade transformei o script executado na atividade 3 em uma rotina reprodutível em formato de R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+##### Pacotes necessários
+```{r , echo=TRUE, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(rgbif)
+library(dplyr)
+library(bdc)
+library(CoordinateCleaner)
+library(ggmap)
+library(maps)
+library(mapdata)
 ```
 
-## Including Plots
+#### Usaremos dados referentes a espécie *Pterois volitans*, popularmente chamado de peixe-leão-vermelho, um peixe venenoso natural dos recifes de coral dos oceanos Índico e Pacífico. Entretanto, vem se espalhando por outras regiões do planeta, como o oceano Atlântico, causando preoucupação a comunidade de cientistas brasileiros. A bioinvasão do *Pterois volitans* pode indiretamente significar a extinção de espécies endêmicas da costa Brasileira, tendo em vista que os indivíduos dessa espécie são caracterizados como excepcionais predadores que podem se alimentar com seu peso a cada dia. Como a fauna local não possui defesa adquirida, a bioivasão do *Pterois volitans* é considerada uma potencial catástrofe ecológica. Levando em consideração o exposto, buscaremos na base de dados Global Biodiversity Information Facility - GBIF, informações sobre os registros de ocorrências do *Pterois volitans* com a finalidade de verificarmos se já existem dados de registros dessa espécie na costa Brasileira. 
 
-You can also embed plots, for example:
+##### Baixando ocorrências do Pterois volitans.
+```{r, echo=TRUE, results='hold'}
+lionfish_gbif <- occ_data(scientificName = "Pterois volitans", 
+                      hasCoordinate = TRUE,
+                      hasGeospatialIssue=FALSE)
 
-```{r pressure, echo=FALSE}
-plot(pressure)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+##### Baixando ocorrências do Pterois volitans.
+```{r, echo=TRUE, cache = TRUE}
+# verificando as dimensões do arquivo
+dim(lionfish_gbif)
+
+# Checando os campos do arquivo
+dim(lionfish_gbif$data)
+```
+##### Agora usaremos a função `gbif_issues` na avaliação dos problemas relatados para o conjunto de dados usado nessa atividade. 
+```{r, echo=TRUE}
+# checar problemas reportados
+issues_gbif <- lionfish_gbif$data$issues %>% 
+  unique() %>% 
+  strsplit(., "[,]") %>% 
+  unlist()
+
+gbif_issues() %>% 
+  data.frame() %>% 
+  filter(code %in% issues_gbif)
+```
+
+##### Sem nenhum problema sério, vamos filtrar algumas informações necessárias a execução das análises. 
+```{r, echo=TRUE}
+lionfish_gbif1 <- lionfish_gbif$data %>%
+  dplyr::select(scientificName, acceptedScientificName, decimalLatitude, decimalLongitude,
+         issues, waterBody, basisOfRecord, occurrenceStatus, rightsHolder, 
+         datasetName, recordedBy, depth, locality, habitat) 
+```
+
+##### Temos 500 ocorrências com 14 variáveis. Aplicaremos a função `distinc` filtrando somente as variáveis que são únicas. 
+```{r, echo=TRUE}
+lionfish_gbif1 <- lionfish_gbif1 %>% 
+  distinct() 
+
+```
+
+##### Após a função, ficamos com 444 dados de ocorrência. Para identificar todos os valores únicos presentes nos dados, vamos aplicar a função `unique` a cada coluna com um *loop* na função `lapply`.
+
+```{r, echo=TRUE}
+lapply(lionfish_gbif1, unique)
+```
+
+##### Agora iniciaremos uma avaliação mais minuciosa dos dados, como a validação das coordenadas geográficas usando as funções dos pacotes `CoordinateCleaner` e `bcd`.
+```{r, echo=TRUE}
+# checar coordenadas válidas
+check_pf <- 
+  bdc::bdc_coordinates_outOfRange(
+    data = lionfish_gbif1,
+    lat = "decimalLatitude",
+    lon = "decimalLongitude")
+
+# checar coordenadas válidas e próximas a capitais (muitas vezes as coordenadas são erroneamente associadas a capitais dos países)
+
+cl <- lionfish_gbif1 %>%
+  select(acceptedScientificName, decimalLatitude, decimalLongitude) %>%
+  rename(decimallongitude = decimalLongitude,
+         decimallatitude = decimalLatitude,
+         scientificName = acceptedScientificName) %>% 
+  as_tibble() %>% 
+  mutate(val = cc_val(., value = "flagged"),
+         sea = cc_sea(., value = "flagged"),
+         capital = cc_cap(., value = "flagged"))
+```
+
+
+##### A visualização desses resultados por uma imagem torna a análise mais compreensivel, além de validarmos os dados e descartamos possíveis ocorrências do peixe-leão em terra. 
+```{r, echo=FALSE}
+# verificar coordenadas com flags
+cl %>% 
+  rename(decimalLongitude = decimallongitude,
+         decimalLatitude = decimallatitude) %>% 
+  bdc::bdc_quickmap(., col_to_map = "capital")  
+```
+
+
+##### Não há coordenadas inválidas, mas checaremos os alertas marcadas em vermelho na imagem. Alguns dos pontos podem aparanter estar em terra, mas a próximidade com regiões insulares pode causar essa falsa impressão visual.
+
+```{r, echo=FALSE}
+# investigando os niveis suspeitos
+lionfish_gbif1 %>% 
+  distinct(waterBody) %>% 
+  pull()
+```
+
+```{r, echo=FALSE}
+# waterBody 
+lionfish_gbif1 %>%
+  group_by(waterBody) %>% 
+  summarise(occ = length(scientificName)) %>% 
+  ggplot(aes(occ, y=waterBody)) +
+    geom_bar(stat = 'identity')
+```
+
+```{r, echo=FALSE}
+# Confirmando visualmente através de um mapa.
+cl %>% 
+  rename(decimalLongitude = decimallongitude,
+         decimalLatitude = decimallatitude) %>% 
+  bdc::bdc_quickmap(., col_to_map = "sea")  
+```
+
+```{r, echo=FALSE}
+# fonte das regioes erradas
+lionfish_gbif1 %>% 
+  filter(waterBody %in% c("Northwest Atlantic")) %>% 
+  distinct(datasetName)
+```
+
+```{r, echo=FALSE}
+# ocorrencias suspeitas
+lionfish_gbif1%>% 
+  filter(datasetName %in% c("Puerto Rico Coral Reef Monitoring Program Database Compilation"))
+```
+
+```{r, echo=FALSE}
+# filtrar todas do dataset suspeito
+lionfish_gbif_ok <- lionfish_gbif1 %>% 
+  filter(!datasetName %in% c("Puerto Rico Coral Reef Monitoring Program Database Compilation"))
+
+# waterBody sem os dados suspeitos
+lionfish_gbif_ok %>%
+  group_by(waterBody) %>% 
+  summarise(occ = length(scientificName)) %>% 
+  ggplot(aes(occ, y=waterBody)) +
+    geom_bar(stat = 'identity')
+```
+
+
+##### Confirmamos que não há nenhum dado de registro ocorrendo em terra. Assim, podemos visualizar novamente o mapa de ocorrências. 
+```{r, echo=FALSE}
+world <- map_data('world')
+  
+# checar pontos
+ 
+ggplot() +
+  geom_polygon(data = world, aes(x = long, y = lat, group = group)) +
+  coord_fixed() +
+  theme_classic() +
+  geom_point(data = lionfish_gbif_ok, aes(x = decimalLongitude, y = decimalLatitude), color = "pink") +
+  labs(x = "longitude", y = "latitude", title = expression(italic("Pterois volitans")))
+
+```
+
+
+#### Agora faremos os mesmos procedimentos com os dados do OBIS, utilizando o pacote `robis` e a função `occurrence` deste pacote. O banco de dados OBIS é considerado o mais atualizado para animais marinhos. 
+
+```{r, echo=FALSE, cache = TRUE}
+lionfish_obis <- robis::occurrence("Pterois volitans")
+```
+##### Checando os dados. Note que estamos realizando os mesmos passos anteriores, mas dessa vez usando os dados de ocorrência do OBIS. 
+```{r, echo=FALSE}
+names(lionfish_obis)
+```
+
+##### filtrando algumas colunas que serão usadas (as mesmas do GBIF).
+```{r, echo=FALSE}
+lionfish_obis1 <- lionfish_obis %>% 
+  dplyr::select(scientificName, decimalLatitude, decimalLongitude, bathymetry,
+                flags, waterBody, basisOfRecord, occurrenceStatus, rightsHolder, 
+                datasetName, recordedBy, depth, locality, habitat) %>% 
+  distinct()
+```
+
+
+##### check problemas reportados (flags)
+```{r, echo=FALSE}
+lionfish_obis1 %>% 
+  distinct(flags)
+```
+##### Check NA em datasetName
+```{r, echo=FALSE}
+lionfish_obis1 %>% 
+  filter(!flags %in% c("no_depth,on_land", "on_land", "on_land,depth_exceeds_bath", "depth_exceeds_bath,on_land"),
+         is.na(datasetName)) %>% 
+  distinct(waterBody)
+```
+
+#### Como nossa finalidade é a observação de possíveis ocorrências da espécie fora de seu habitat de origem não realizaremos filtragem com a remoção de registros reportados em regiões distintas do ocenao pacífico e índico.
+```{r, echo=FALSE, warning=FALSE}
+lionfish_obis1 %>% 
+  filter(!flags %in% c("no_depth,on_land", "on_land", "on_land,depth_exceeds_bath", "depth_exceeds_bath,on_land"),
+         !is.na(datasetName),
+         ) %>% 
+  ggplot(aes(x = depth, fill = waterBody)) +
+  geom_histogram() 
+```
+##### Usando a função `flags` (anteriormente) filtramos os dados de ocorrência em terra e removemos os dados sem nome de dataset.
+
+##### Checar niveis
+```{r, echo=FALSE, warning=FALSE}
+lionfish_obis1 %>% 
+  filter(!flags %in% c("no_depth,on_land", "on_land", "on_land,depth_exceeds_bath", "depth_exceeds_bath,on_land"),
+         !is.na(datasetName),
+         ) %>% 
+  lapply(., unique)
+```
+
+
+##### Dados filtrados sem as ocorrências errôneas em terra.
+```{r, echo=FALSE}
+lionfish_obis_ok <- lionfish_obis1 %>% 
+  filter(!flags %in% c("no_depth,on_land", "on_land", "on_land,depth_exceeds_bath", "depth_exceeds_bath,on_land"),
+         !is.na(datasetName),
+         )
+```
+
+##### Visualizando os resultados através de um mapa.
+```{r, echo=FALSE, warning=FALSE}
+  ggplot() +
+  geom_polygon(data = world, aes(x = long, y = lat, group = group)) +
+  coord_fixed() +
+  theme_classic() +
+  geom_point(data = lionfish_obis_ok, aes(x = decimalLongitude, y = decimalLatitude, color = waterBody)) +
+  labs(x = "longitude", y = "latitude", title = expression(italic("Pterois volitans")))
+```
+
+##### Unindo os resultados obtidos com o GBIF e OBIS
+```{r, echo=FALSE, warning=FALSE}
+# ver diferencas
+setdiff(names(lionfish_gbif_ok), names(lionfish_obis_ok))
+
+setdiff(names(lionfish_gbif_ok), names(lionfish_obis_ok))
+
+all_data <- bind_rows(lionfish_gbif_ok %>% 
+                        mutate(repo = paste0("gbif", row.names(.))), 
+                      lionfish_obis_ok %>% 
+                        mutate(repo = paste0("obis", row.names(.)))) %>%
+  column_to_rownames("repo") %>% 
+  dplyr::select(decimalLongitude, decimalLatitude, depth) %>% 
+  distinct() %>% 
+  rownames_to_column("occ") %>% 
+  separate(col = "occ", into = c("datasetName", "rn"), sep = 4) %>%
+  mutate(scientificName = "Pterois volitans") %>% 
+  dplyr::select(-rn)
+
+```
+##### Visualizando através de um mapa
+```{r, echo=FALSE, warning=FALSE}
+ggplot() +
+  geom_polygon(data = world, aes(x = long, y = lat, group = group)) +
+  coord_fixed() +
+  theme_classic() +
+  geom_point(data = all_data, aes(x = decimalLongitude, y = decimalLatitude, color = datasetName)) +
+  #theme(legend.title = element_blank()) +
+  labs(x = "longitude", y = "latitude", title = expression(italic("Pterois volitans")))
+```
+
+
