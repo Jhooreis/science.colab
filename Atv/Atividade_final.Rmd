@@ -5,3 +5,184 @@ date: "2023-04-27"
 output: html_document
 ---
 
+##### Pacotes necessários para a execução das análises
+```{r , echo=TRUE, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(rgbif)
+library(dplyr)
+library(bdc)
+library(CoordinateCleaner)
+library(ggmap)
+library(maps)
+library(mapdata)
+library(plotly)
+```
+
+##### Baixando ocorrências do Pterois volitans.
+```{r, echo=TRUE, results='hold'}
+lionfish_gbif <- occ_data(scientificName = "Anacardium occidentale", 
+                      hasCoordinate = TRUE,
+                      hasGeospatialIssue=FALSE)
+
+```
+
+##### Agora usaremos a função `gbif_issues` na avaliação dos problemas relatados para o conjunto de dados usado nessa atividade. 
+```{r, echo=TRUE}
+# checar problemas reportados
+issues_gbif <- lionfish_gbif$data$issues %>% 
+  unique() %>% 
+  strsplit(., "[,]") %>% 
+  unlist()
+
+gbif_issues() %>% 
+  data.frame() %>% 
+  filter(code %in% issues_gbif)
+```
+
+##### Visualizando as dimensões e campos do arquivo
+```{r, echo=TRUE, cache = TRUE}
+# verificando as dimensões do arquivo
+dim(lionfish_gbif)
+
+# Detalhando os campos do arquivo
+dim(lionfish_gbif$data)
+lionfish_gbif$data %>% names
+```
+
+
+##### Sem nenhum problema sério, vamos filtrar algumas informações necessárias a execução das análises. 
+```{r, echo=TRUE}
+lionfish_gbif1 <- lionfish_gbif$data %>%
+  dplyr::select(scientificName, acceptedScientificName, decimalLatitude, decimalLongitude,
+         issues, basisOfRecord, occurrenceStatus, rightsHolder, 
+         datasetName, recordedBy, locality,habitat,stateProvince) 
+```
+
+##### Temos 500 ocorrências com 13 variáveis. Aplicaremos a função `distinc` filtrando somente as variáveis que são únicas. 
+```{r, echo=TRUE}
+lionfish_gbif1 <- lionfish_gbif1 %>% 
+  distinct() 
+
+```
+
+##### Após a função, ficamos com 484 dados de ocorrência. Para identificar todos os valores únicos presentes nos dados, vamos aplicar a função `unique` a cada coluna com um *loop* na função `lapply`.
+
+```{r, echo=TRUE}
+lapply(lionfish_gbif1, unique)
+```
+
+##### Agora iniciaremos uma avaliação mais minuciosa dos dados, como a validação das coordenadas geográficas usando as funções dos pacotes `CoordinateCleaner` e `bcd`.
+```{r, echo=TRUE}
+# checar coordenadas válidas
+check_pf <- 
+  bdc::bdc_coordinates_outOfRange(
+    data = lionfish_gbif1,
+    lat = "decimalLatitude",
+    lon = "decimalLongitude")
+
+# checar coordenadas válidas e próximas a capitais (muitas vezes as coordenadas são erroneamente associadas a capitais dos países)
+
+cl <- lionfish_gbif1 %>%
+  select(acceptedScientificName, decimalLatitude, decimalLongitude) %>%
+  rename(decimallongitude = decimalLongitude,
+         decimallatitude = decimalLatitude,
+         scientificName = acceptedScientificName) %>% 
+  as_tibble() %>% 
+  mutate(val = cc_val(., value = "flagged"),
+         sea = TRUE,
+         capital = cc_cap(., value = "flagged"))
+```
+
+##### A visualização desses resultados por uma imagem torna a análise mais compreensivel, além de validarmos os dados e descartamos possíveis ocorrências da espécie ***Anacardium occidentale*** no mar. Afinal, o cajueiro é uma planta de habitat terrestre. 
+```{r, echo=FALSE}
+# verificar coordenadas com flags
+cl %>% 
+  rename(decimalLongitude = decimallongitude,
+         decimalLatitude = decimallatitude) %>% 
+  bdc::bdc_quickmap(., col_to_map = "capital")
+```
+
+##### Através de uma rápida observação é possível verificarmos alguns sinais de alerta, marcadas em vermelho na página. 
+```{r, echo=FALSE}
+# investigando os niveis suspeitos
+lionfish_gbif1 %>% 
+  distinct(datasetName) %>% 
+  pull()
+```
+
+```{r, echo=FALSE}
+# Dataset
+lionfish_gbif1 %>%
+  group_by(datasetName) %>% 
+  summarise(occ = length(scientificName)) %>% 
+  ggplot(aes(occ, y=datasetName)) +
+    geom_bar(stat = 'identity')
+```
+
+##### Como formar de garantir a segurança de nossos dados, usaremos apenas ocorrências registradas em herbários e excluiremos os demais. Os herbários são ferramentas científicas valiosas e "bibliotecas" da fauna, sendo assim há a necessidade de constante organização e validação dos materiais depositados, trazendo mais segurança a nossas análises. 
+```{r, echo=FALSE}
+lionfish_gbif1 %>% 
+  filter(datasetName %in% c("NA")) %>% 
+  distinct(datasetName)
+```
+
+##### As ocorrências em vermelho podem ocasionalmente terem sido registradas próximas a regiões insulares, o que justificaria a presença desses pontos no que visualmente consideramos água. Após a filtragem e retirada dos dados que não possuem registros em herbários podemos checar o novo mapa. 
+```{r, echo=FALSE}
+world <- map_data('world')
+  
+# checar pontos
+ 
+ggplot() +
+  geom_polygon(data = world, aes(x = long, y = lat, group = group)) +
+  coord_fixed() +
+  theme_classic() +
+  geom_point(data = lionfish_gbif1, aes(x = decimalLongitude, y = decimalLatitude), color = "green") +
+  labs(x = "Longitude", y = "Latitude", title = expression(italic("Anacardium occidentale")))
+
+```
+
+#### De inicial podemos notar que a espécie apresenta uma ampla distribuição nas regiões de clima tropical e, especialmente no território brasileiro. Há diversar hipóteses que tratam sobre a origem de A. occidentale, as mais atuais são pautadas em provas circunstanciais que aponta o Brasil como o centro de irradiação da espécie; acredita-se que vasta dispersão pelos territórios de clima tropical tenha ocorrido inicialmente por colonizadores  portugueses e espanhóis. Como forma de revalidar essas informações, realizaremos uma análise de coorelação entre a ocorrência de A. occidentale e longitude.
+
+#### Para essa análise usaremos pacotes da biblioteca `Plotly`, que permite a criação de gráficos interativos simples.
+```{r, echo=FALSE}
+cc <- lionfish_gbif1 %>% 
+  mutate(lat = round(decimalLatitude)) %>% 
+  group_by(lat, scientificName) %>%
+  summarise(occ = length(scientificName)) %>%
+  ggplot(aes(y = occ, x = lat, color = scientificName)) +
+    geom_point() +
+    geom_smooth() +
+    theme_classic() +
+    labs(x = "Latitude", y = 'Ocorrências')
+
+ggplotly(cc)
+```
+
+
+#### Pela Visualização do gráfico, fica clara que a distribuição de A. occidentale ocorre majoritariamente entre as latitudes -30 e 20. Uma possível explicação a essa distribuição pode ser dada pelas carcterísticas morfológicas e fisiológicas da espécie, que apresenta atributos eficientes para lidar com altas temperaturas e suportar o déficit hídrico. Podemos visualizar a distribuição de A.occidentale em relação a longitude e confirmar nossa afirmação, vejamos: 
+```{r, echo=FALSE}
+cc2 <- lionfish_gbif1 %>% 
+  mutate(lat = round(decimalLongitude)) %>% 
+  group_by(lat, scientificName) %>%
+  summarise(occ = length(scientificName)) %>%
+  ggplot(aes(y = occ, x = lat, color = scientificName)) +
+    geom_point() +
+    geom_smooth() +
+    theme_classic() +
+    labs(x = "Latitude", y = 'Ocorrências')
+
+ggplotly(cc2)
+```
+#### De fato A. occidentale apresenta uma distribuição dispersa entre os países dentro da região tropical, tendo poucas ocorrências em regiões de clima temperado (**Imagem 1**).
+
+
+![Imagem 1](https://www.phaneronsoft.com.br/wp-content/uploads/2014/06/latitude-longitude.jpg)
+
+###  O fruto e pseudofruto do cajú são a principal fonte de renda de diversas famílias pelo mundo. No Brasil, a cajucultura é um setor forte e ascendente em diversos estados do país, em destaque aos estados do Piauí e Ceará e Rio Grande do Norte (**Imagem 2**)
+
+![Imagem 2](https://scontent.fsdu12-2.fna.fbcdn.net/v/t1.6435-9/116704240_652256188796323_9074932130351203410_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=0debeb&_nc_eui2=AeGcPswElGShDfXYh9DuJURUS7786i6DczFLvvzqLoNzMQGFIP1s7MAcx3z9qG8dSnQMFmPKPqWMgWUk99L8WI-J&_nc_ohc=5pIebclBh3IAX9-yy5k&_nc_ht=scontent.fsdu12-2.fna&oh=00_AfAzH1moxwc2S4bmtr7ko0TBq9_kf_Ayx97TDly12oHYVQ&oe=6471E539)
+
+
+### Podemos concluir que A. occidentale possui ampla distribuição nos países da região tropical, tendo sua ocorrência restrita a regiões em que predominam as características climáticas tropicais, com destaque ao Brasil, possível fonte original de dispersão da espécie. 
+
+
