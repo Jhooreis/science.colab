@@ -4,7 +4,7 @@ require(tidyr)
 require(taxize)
 require(validate)
 
-iris <- read.csv("iris_mod.csv", header = T)
+
 iris2 <- read.csv("dados_unidos.csv", sep = ";", header = T)
 iris2$X<-NULL
 
