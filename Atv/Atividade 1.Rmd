@@ -13,7 +13,7 @@ text-align:justify}
 ```
 # Atividade 01: Reorganizando e padronizando uma tabela de dados no R.
 
-```{r, include=TRUE}
+```{r, include=TRUE, warning=FALSE, message=FALSE}
 # Pacotes necessário para essa atividade:
 
 library(tidyverse)
@@ -130,12 +130,16 @@ dados <- as.data.frame(dados)
 
 ```{r, include=TRUE}
 # Nomes das espécies e local 
-dados$spp[dados$spp == "IRIS_VERSICOLOR"] <- "Iris_versicolor"
-dados$spp[dados$spp == "IRIS_VIRGINICA"] <- "Iris_virginica"
-dados$spp[dados$spp == "IRIS_SETOSA"] <- "Iris_setosa"
-dados$spp[dados$spp == "iris_versicolor"] <- "Iris_versicolor"
-dados$spp[dados$spp == "iris_virginica"] <- "Iris_virginica"
-dados$spp[dados$spp == "iris_setosa"] <- "Iris_setosa"
+dados$spp[dados$spp == "IRIS_VERSICOLOR"] <- "Iris versicolor"
+dados$spp[dados$spp == "IRIS_VIRGINICA"] <- "Iris virginica"
+dados$spp[dados$spp == "IRIS_SETOSA"] <- "Iris setosa"
+dados$spp[dados$spp == "iris_versicolor"] <- "Iris versicolor"
+dados$spp[dados$spp == "iris_virginica"] <- "Iris virginica"
+dados$spp[dados$spp == "iris_setosa"] <- "Iris setosa"
+dados$spp[dados$spp == "Iris_versicolor"] <- "Iris versicolor"
+dados$spp[dados$spp == "Iris_virginica"] <- "Iris virginica"
+dados$spp[dados$spp == "Iris_setosa"] <- "Iris setosa"
+
 
 dados$site[dados$site == "S3"] <- "Site3"
 dados$site[dados$site == "S2"] <- "Site2"
@@ -144,8 +148,6 @@ dados$site[dados$site == "site3"] <- "Site3"
 dados$site[dados$site == "site2"] <- "Site2"
 dados$site[dados$site == "site1"] <- "Site1"
 
-
-	
 ```
 
 ```{r, include=TRUE}
@@ -168,3 +170,5 @@ class(dados$data)
 dados<-dados[order(dados$spp),]
 dados
 ```
+
+### O arquivo final em formato .csv gerado por essa atividade, assim como as tabelas individuais, podem ser consultadas  [Aqui](https://github.com/Jhooreis/science.colab/tree/main/data)

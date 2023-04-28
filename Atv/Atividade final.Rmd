@@ -200,5 +200,5 @@ ggplotly(cc2)
 ##### Podemos concluir que ***A. occidentale*** possui ampla distribuição nos países da região tropical, tendo sua ocorrência restrita a regiões em que predominam as características climáticas tropicais, com destaque ao Brasil, possível fonte primária de dispersão da espécie. 
 
 
-### O script completo dessa atividade em formato .Rmd pode ser consultado [Aqui](https://github.com/Jhooreis/science.colab/blob/main/Atv/Atividade_final.Rmd,  "Repositório science.colab")
+### O script completo dessa atividade em formato .Rmd pode ser consultado [Aqui](https://github.com/Jhooreis/science.colab/tree/main/Atv)
 

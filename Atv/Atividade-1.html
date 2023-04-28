@@ -366,24 +366,9 @@ text-align:justify}
 R.</h1>
 <pre class="r"><code># Pacotes necessário para essa atividade:
 
-library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-## ✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
-## ✔ tibble  3.1.7      ✔ dplyr   1.0.10
-## ✔ tidyr   1.2.0      ✔ stringr 1.4.0 
-## ✔ readr   2.1.3      ✔ forcats 0.5.2</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.2.2</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(dplyr)
+library(tidyverse)
+library(dplyr)
 library(lubridate)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;lubridate&#39;
-## 
-## The following objects are masked from &#39;package:base&#39;:
-## 
-##     date, intersect, setdiff, union</code></pre>
 <div id="para-chegarmos-a-uma-tabela-única-houve-a-necessidade-de-padronização-de-diversas-arquivos-separados.-assim-os-primeiros-passos-desse-arquivo-demostram-quais-os-procedimentos-executados-para-cada-sub-tabela." class="section level2">
 <h2>Para chegarmos a uma tabela única houve a necessidade de
 padronização de diversas arquivos separados. Assim, os primeiros passos
@@ -530,157 +515,157 @@ attach(tab_JR) </code></pre>
 único arquivo.</h2>
 <pre class="r"><code>dados &lt;- rbind(tab_HS2, tab_Lorr2, tab_MA2, tab_MB2, tab_VC2, tab_JR2)
 dados</code></pre>
-<pre><code>##        amostra spp               data         site    latitude   longitude  
-##   [1,] &quot;A21&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##   [2,] &quot;A24&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##   [3,] &quot;A33&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##   [4,] &quot;A29&quot;   &quot;Iris_setosa&quot;     &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##   [5,] &quot;A35&quot;   &quot;Iris_setosa&quot;     &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##   [6,] &quot;A5&quot;    &quot;Iris_setosa&quot;     &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##   [7,] &quot;A14&quot;   &quot;Iris_setosa&quot;     &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##   [8,] &quot;A37&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##   [9,] &quot;A10&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [10,] &quot;A63&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [11,] &quot;A72&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [12,] &quot;A90&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [13,] &quot;A52&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [14,] &quot;A67&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [15,] &quot;A108&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [16,] &quot;A111&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [17,] &quot;A117&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [18,] &quot;A120&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [19,] &quot;A122&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [20,] &quot;A131&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [21,] &quot;A140&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [22,] &quot;A109&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [23,] &quot;A115&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [24,] &quot;A136&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [25,] &quot;A142&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [26,] &quot;A18&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [27,] &quot;A45&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [28,] &quot;A102&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [29,] &quot;A141&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [30,] &quot;A101&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [31,] &quot;A116&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [32,] &quot;A138&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [33,] &quot;A118&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [34,] &quot;A124&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [35,] &quot;A139&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [36,] &quot;A104&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [37,] &quot;A119&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [38,] &quot;A134&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [39,] &quot;A140&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [40,] &quot;A143&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [41,] &quot;A112&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [42,] &quot;A27&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [43,] &quot;A40&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [44,] &quot;A43&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [45,] &quot;A46&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [46,] &quot;A60&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [47,] &quot;A56&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [48,] &quot;A80&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [49,] &quot;A92&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [50,] &quot;A85&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [51,] &quot;A103&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [52,] &quot;A121&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [53,] &quot;A123&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [54,] &quot;A13&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [55,] &quot;A134&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [56,] &quot;A137&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [57,] &quot;A138&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [58,] &quot;A148&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [59,] &quot;A150&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [60,] &quot;A16&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [61,] &quot;A28&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [62,] &quot;A4&quot;    &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [63,] &quot;A48&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [64,] &quot;A51&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [65,] &quot;A59&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [66,] &quot;A61&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [67,] &quot;A65&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [68,] &quot;A68&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [69,] &quot;A73&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [70,] &quot;A77&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [71,] &quot;A78&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [72,] &quot;A83&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [73,] &quot;A89&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [74,] &quot;A97&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [75,] &quot;A99&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [76,] &quot;A100&quot;  &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [77,] &quot;A119&quot;  &quot;iris_virginica&quot;  &quot;13/02/1930&quot; &quot;ste2&quot;  &quot;48540502&quot; &quot;-64766512&quot;
-##  [78,] &quot;A127&quot;  &quot;iris_virginica&quot;  &quot;01/12/1929&quot; &quot;site3&quot; &quot;49329837&quot; &quot;-65512333&quot;
-##  [79,] &quot;A129&quot;  &quot;iris_virginica&quot;  &quot;01/12/1929&quot; &quot;site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [80,] &quot;A149&quot;  &quot;iris_virginica&quot;  &quot;13/02/1930&quot; &quot;site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [81,] &quot;A15&quot;   &quot;iris_setosa&quot;     &quot;01/12/1929&quot; &quot;site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [82,] &quot;A25&quot;   &quot;iris_setosa&quot;     &quot;01/12/1929&quot; &quot;site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [83,] &quot;A26&quot;   &quot;iris_setosa&quot;     &quot;13/02/1930&quot; &quot;site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [84,] &quot;A3&quot;    &quot;iris_setosa&quot;     &quot;01/12/1929&quot; &quot;site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [85,] &quot;A32&quot;   &quot;iris_setosa&quot;     &quot;13/02/1930&quot; &quot;site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [86,] &quot;A41&quot;   &quot;iris_setosa&quot;     &quot;13/02/1930&quot; &quot;site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [87,] &quot;A47&quot;   &quot;iris_setosa&quot;     &quot;13/02/1930&quot; &quot;site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [88,] &quot;A54&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [89,] &quot;A58&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [90,] &quot;A62&quot;   &quot;iris_versicolor&quot; &quot;13/02/1930&quot; &quot;site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [91,] &quot;A70&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [92,] &quot;A71&quot;   &quot;iris_versicolor&quot; &quot;13/02/1930&quot; &quot;site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-##  [93,] &quot;A76&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [94,] &quot;A79&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site3&quot; &quot;49329837&quot; &quot;-65512333&quot;
-##  [95,] &quot;A81&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [96,] &quot;A82&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [97,] &quot;A87&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-##  [98,] &quot;A88&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-##  [99,] &quot;A93&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-## [100,] &quot;A95&quot;   &quot;iris_versicolor&quot; &quot;13/02/1930&quot; &quot;site2&quot; &quot;48540502&quot; &quot;-64788512&quot;
-## [101,] &quot;A75&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-## [102,] &quot;A96&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-## [103,] &quot;A91&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1929_12_01&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-## [104,] &quot;A42&quot;   &quot;IRIS_SETOSA&quot;     &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-## [105,] &quot;A105&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-## [106,] &quot;A113&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1930_02_13&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-## [107,] &quot;A66&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-## [108,] &quot;A147&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-## [109,] &quot;A57&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-## [110,] &quot;A30&quot;   &quot;IRIS_SETOSA&quot;     &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-## [111,] &quot;A55&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1929_12_01&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-## [112,] &quot;A74&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1930_02_13&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-## [113,] &quot;A104&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1930_02_13&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-## [114,] &quot;A123&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1929_12_01&quot; &quot;Site2&quot; &quot;48935966&quot; &quot;-64840984&quot;
-## [115,] &quot;A132&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-## [116,] &quot;A130&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1929_12_01&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-## [117,] &quot;A128&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1930_02_13&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-## [118,] &quot;A133&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1929_12_01&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-## [119,] &quot;A39&quot;   &quot;IRIS_SETOSA&quot;     &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-## [120,] &quot;A36&quot;   &quot;IRIS_SETOSA&quot;     &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-## [121,] &quot;A64&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1929_12_01&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-## [122,] &quot;A69&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48935966&quot; &quot;-64840984&quot;
-## [123,] &quot;A112&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1929_12_01&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-## [124,] &quot;A86&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1930_02_13&quot; &quot;Site2&quot; &quot;48540502&quot; &quot;-64766512&quot;
-## [125,] &quot;A49&quot;   &quot;IRIS_SETOSA&quot;     &quot;1929_12_01&quot; &quot;Site3&quot; &quot;48329837&quot; &quot;-65512333&quot;
-## [126,] &quot;A114&quot;  &quot;iris_virginica&quot;  &quot;01/12/1929&quot; &quot;S1&quot;    &quot;48935966&quot; &quot;-64840984&quot;
-## [127,] &quot;A135&quot;  &quot;iris_virginica&quot;  &quot;01/12/1929&quot; &quot;S1&quot;    &quot;48935966&quot; &quot;-64840984&quot;
-## [128,] &quot;A144&quot;  &quot;iris_virginica&quot;  &quot;01/12/1929&quot; &quot;S1&quot;    &quot;48935966&quot; &quot;-64840984&quot;
-## [129,] &quot;A107&quot;  &quot;iris_virginica&quot;  &quot;13/02/1930&quot; &quot;S2&quot;    &quot;48540502&quot; &quot;-64766512&quot;
-## [130,] &quot;A110&quot;  &quot;iris_virginica&quot;  &quot;13/02/1930&quot; &quot;S2&quot;    &quot;4854052&quot;  &quot;-64766512&quot;
-## [131,] &quot;A125&quot;  &quot;iris_virginica&quot;  &quot;13/02/1930&quot; &quot;S2&quot;    &quot;48540502&quot; &quot;-64766512&quot;
-## [132,] &quot;A143&quot;  &quot;iris_virginica&quot;  &quot;13/02/1930&quot; &quot;S2&quot;    &quot;48540502&quot; &quot;-64766512&quot;
-## [133,] &quot;A146&quot;  &quot;iris_virginica&quot;  &quot;13/02/1930&quot; &quot;S2&quot;    &quot;48540502&quot; &quot;-64766512&quot;
-## [134,] &quot;A106&quot;  &quot;iris_virginica&quot;  &quot;01/12/1929&quot; &quot;S3&quot;    &quot;48329837&quot; &quot;-65512333&quot;
-## [135,] &quot;A117&quot;  &quot;iris_virginica&quot;  &quot;01/12/1929&quot; &quot;S1&quot;    &quot;48935966&quot; &quot;-64840984&quot;
-## [136,] &quot;A145&quot;  &quot;iris_virginica&quot;  &quot;01/12/1929&quot; &quot;S3&quot;    &quot;48329837&quot; &quot;-65512333&quot;
-## [137,] &quot;A12 &quot;  &quot;iris_setosa&quot;     &quot;01/12/1929&quot; &quot;S1&quot;    &quot;48935966&quot; &quot;-64840984&quot;
-## [138,] &quot;A17&quot;   &quot;iris_setosa&quot;     &quot;13/02/1930&quot; &quot;S2&quot;    &quot;48540502&quot; &quot;-64766512&quot;
-## [139,] &quot;A20&quot;   &quot;iris_setosa&quot;     &quot;13/02/1930&quot; &quot;S2&quot;    &quot;48540502&quot; &quot;-64766512&quot;
-## [140,] &quot;A44&quot;   &quot;iris_setosa&quot;     &quot;14/02/1930&quot; &quot;S2&quot;    &quot;48540502&quot; &quot;-64766512&quot;
-## [141,] &quot;A50&quot;   &quot;iris_setosa&quot;     &quot;15/02/1930&quot; &quot;S2&quot;    &quot;48540502&quot; &quot;-64766512&quot;
-## [142,] &quot;A19&quot;   &quot;iris_setosa&quot;     &quot;01/12/1929&quot; &quot;S3&quot;    &quot;48329837&quot; &quot;-65512333&quot;
-## [143,] &quot;A22&quot;   &quot;iris_setosa&quot;     &quot;02/12/1929&quot; &quot;S3&quot;    &quot;48329837&quot; &quot;-65512333&quot;
-## [144,] &quot;A34&quot;   &quot;iris_setosa&quot;     &quot;03/12/1929&quot; &quot;S3&quot;    &quot;48329837&quot; &quot;-65512333&quot;
-## [145,] &quot;A1&quot;    &quot;iris_setosa&quot;     &quot;04/12/1929&quot; &quot;S3&quot;    &quot;48329837&quot; &quot;-65512333&quot;
-## [146,] &quot;A7&quot;    &quot;iris_setosa&quot;     &quot;05/12/1929&quot; &quot;S3&quot;    &quot;48329837&quot; &quot;-65512333&quot;
-## [147,] &quot;A84&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;S1&quot;    &quot;48935966&quot; &quot;-64840984&quot;
-## [148,] &quot;A53&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;S2&quot;    &quot;48540502&quot; &quot;-64766512&quot;
-## [149,] &quot;A98&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;S2&quot;    &quot;48540502&quot; &quot;-64766512&quot;
-## [150,] &quot;A94&quot;   &quot;Iris_versicolor&quot; &quot;05/12/1929&quot; &quot;S3&quot;    &quot;48329837&quot; &quot;-65512333&quot;
+<pre><code>##        amostra spp               data         site    latitude    longitude   
+##   [1,] &quot;A21&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##   [2,] &quot;A24&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935967&quot; &quot;-64.840984&quot;
+##   [3,] &quot;A33&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935968&quot; &quot;-64.840984&quot;
+##   [4,] &quot;A29&quot;   &quot;Iris_setosa&quot;     &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##   [5,] &quot;A35&quot;   &quot;Iris_setosa&quot;     &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766513&quot;
+##   [6,] &quot;A5&quot;    &quot;Iris_setosa&quot;     &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766514&quot;
+##   [7,] &quot;A14&quot;   &quot;Iris_setosa&quot;     &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766515&quot;
+##   [8,] &quot;A37&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##   [9,] &quot;A10&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [10,] &quot;A63&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [11,] &quot;A72&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935967&quot; &quot;-64.840984&quot;
+##  [12,] &quot;A90&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935968&quot; &quot;-64.840984&quot;
+##  [13,] &quot;A52&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [14,] &quot;A67&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [15,] &quot;A108&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [16,] &quot;A111&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [17,] &quot;A117&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [18,] &quot;A120&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [19,] &quot;A122&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [20,] &quot;A131&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766513&quot;
+##  [21,] &quot;A140&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766514&quot;
+##  [22,] &quot;A109&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [23,] &quot;A115&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [24,] &quot;A136&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [25,] &quot;A142&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [26,] &quot;A18&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [27,] &quot;A45&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [28,] &quot;A102&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [29,] &quot;A141&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [30,] &quot;A101&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [31,] &quot;A116&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [32,] &quot;A138&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [33,] &quot;A118&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [34,] &quot;A124&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [35,] &quot;A139&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [36,] &quot;A104&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [37,] &quot;A119&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [38,] &quot;A134&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [39,] &quot;A140&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [40,] &quot;A143&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [41,] &quot;A112&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [42,] &quot;A27&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [43,] &quot;A40&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [44,] &quot;A43&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [45,] &quot;A46&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [46,] &quot;A60&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [47,] &quot;A56&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [48,] &quot;A80&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [49,] &quot;A92&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [50,] &quot;A85&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [51,] &quot;A103&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [52,] &quot;A121&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [53,] &quot;A123&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [54,] &quot;A13&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [55,] &quot;A134&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [56,] &quot;A137&quot;  &quot;Iris_virginica&quot;  &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [57,] &quot;A138&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [58,] &quot;A148&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [59,] &quot;A150&quot;  &quot;Iris_virginica&quot;  &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [60,] &quot;A16&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [61,] &quot;A28&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [62,] &quot;A4&quot;    &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [63,] &quot;A48&quot;   &quot;Iris_setosa&quot;     &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [64,] &quot;A51&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [65,] &quot;A59&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [66,] &quot;A61&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [67,] &quot;A65&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [68,] &quot;A68&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [69,] &quot;A73&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [70,] &quot;A77&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [71,] &quot;A78&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [72,] &quot;A83&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [73,] &quot;A89&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [74,] &quot;A97&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [75,] &quot;A99&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [76,] &quot;A100&quot;  &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [77,] &quot;A119&quot;  &quot;iris_virginica&quot;  &quot;13/02/1930&quot; &quot;ste2&quot;  &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [78,] &quot;A127&quot;  &quot;iris_virginica&quot;  &quot;01/12/1929&quot; &quot;site3&quot; &quot;49.329837&quot; &quot;-65.512333&quot;
+##  [79,] &quot;A129&quot;  &quot;iris_virginica&quot;  &quot;01/12/1929&quot; &quot;site1&quot; &quot;48.935966&quot; &quot;-64840984&quot; 
+##  [80,] &quot;A149&quot;  &quot;iris_virginica&quot;  &quot;13/02/1930&quot; &quot;site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [81,] &quot;A15&quot;   &quot;iris_setosa&quot;     &quot;01/12/1929&quot; &quot;site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [82,] &quot;A25&quot;   &quot;iris_setosa&quot;     &quot;01/12/1929&quot; &quot;site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [83,] &quot;A26&quot;   &quot;iris_setosa&quot;     &quot;13/02/1930&quot; &quot;site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [84,] &quot;A3&quot;    &quot;iris_setosa&quot;     &quot;01/12/1929&quot; &quot;site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [85,] &quot;A32&quot;   &quot;iris_setosa&quot;     &quot;13/02/1930&quot; &quot;site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [86,] &quot;A41&quot;   &quot;iris_setosa&quot;     &quot;13/02/1930&quot; &quot;site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [87,] &quot;A47&quot;   &quot;iris_setosa&quot;     &quot;13/02/1930&quot; &quot;site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [88,] &quot;A54&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [89,] &quot;A58&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [90,] &quot;A62&quot;   &quot;iris_versicolor&quot; &quot;13/02/1930&quot; &quot;site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [91,] &quot;A70&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [92,] &quot;A71&quot;   &quot;iris_versicolor&quot; &quot;13/02/1930&quot; &quot;site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+##  [93,] &quot;A76&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [94,] &quot;A79&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site3&quot; &quot;49.329837&quot; &quot;-65.512333&quot;
+##  [95,] &quot;A81&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [96,] &quot;A82&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [97,] &quot;A87&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+##  [98,] &quot;A88&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+##  [99,] &quot;A93&quot;   &quot;iris_versicolor&quot; &quot;01/12/1929&quot; &quot;site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+## [100,] &quot;A95&quot;   &quot;iris_versicolor&quot; &quot;13/02/1930&quot; &quot;site2&quot; &quot;48.540502&quot; &quot;-64.788512&quot;
+## [101,] &quot;A75&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+## [102,] &quot;A96&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+## [103,] &quot;A91&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1929_12_01&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+## [104,] &quot;A42&quot;   &quot;IRIS_SETOSA&quot;     &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+## [105,] &quot;A105&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+## [106,] &quot;A113&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1930_02_13&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+## [107,] &quot;A66&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+## [108,] &quot;A147&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+## [109,] &quot;A57&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+## [110,] &quot;A30&quot;   &quot;IRIS_SETOSA&quot;     &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+## [111,] &quot;A55&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1929_12_01&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+## [112,] &quot;A74&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1930_02_13&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+## [113,] &quot;A104&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1930_02_13&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+## [114,] &quot;A123&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1929_12_01&quot; &quot;Site2&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+## [115,] &quot;A132&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+## [116,] &quot;A130&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1929_12_01&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+## [117,] &quot;A128&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1930_02_13&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+## [118,] &quot;A133&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1929_12_01&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+## [119,] &quot;A39&quot;   &quot;IRIS_SETOSA&quot;     &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+## [120,] &quot;A36&quot;   &quot;IRIS_SETOSA&quot;     &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+## [121,] &quot;A64&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1929_12_01&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+## [122,] &quot;A69&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1929_12_01&quot; &quot;Site1&quot; &quot;48.935966&quot; &quot;-64.840984&quot;
+## [123,] &quot;A112&quot;  &quot;IRIS_VIRGINICA&quot;  &quot;1929_12_01&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+## [124,] &quot;A86&quot;   &quot;IRIS_VERSICOLOR&quot; &quot;1930_02_13&quot; &quot;Site2&quot; &quot;48.540502&quot; &quot;-64.766512&quot;
+## [125,] &quot;A49&quot;   &quot;IRIS_SETOSA&quot;     &quot;1929_12_01&quot; &quot;Site3&quot; &quot;48.329837&quot; &quot;-65.512333&quot;
+## [126,] &quot;A114&quot;  &quot;iris_virginica&quot;  &quot;01/12/1929&quot; &quot;S1&quot;    &quot;48.935966&quot; &quot;-64.840984&quot;
+## [127,] &quot;A135&quot;  &quot;iris_virginica&quot;  &quot;01/12/1929&quot; &quot;S1&quot;    &quot;48.935966&quot; &quot;-64.840984&quot;
+## [128,] &quot;A144&quot;  &quot;iris_virginica&quot;  &quot;01/12/1929&quot; &quot;S1&quot;    &quot;48.935966&quot; &quot;-64.840984&quot;
+## [129,] &quot;A107&quot;  &quot;iris_virginica&quot;  &quot;13/02/1930&quot; &quot;S2&quot;    &quot;48.540502&quot; &quot;-64.766512&quot;
+## [130,] &quot;A110&quot;  &quot;iris_virginica&quot;  &quot;13/02/1930&quot; &quot;S2&quot;    &quot;48.54052&quot;  &quot;-64.766512&quot;
+## [131,] &quot;A125&quot;  &quot;iris_virginica&quot;  &quot;13/02/1930&quot; &quot;S2&quot;    &quot;48.540502&quot; &quot;-64.766512&quot;
+## [132,] &quot;A143&quot;  &quot;iris_virginica&quot;  &quot;13/02/1930&quot; &quot;S2&quot;    &quot;48.540502&quot; &quot;-64.766512&quot;
+## [133,] &quot;A146&quot;  &quot;iris_virginica&quot;  &quot;13/02/1930&quot; &quot;S2&quot;    &quot;48.540502&quot; &quot;-64.766512&quot;
+## [134,] &quot;A106&quot;  &quot;iris_virginica&quot;  &quot;01/12/1929&quot; &quot;S3&quot;    &quot;48.329837&quot; &quot;-65.512333&quot;
+## [135,] &quot;A117&quot;  &quot;iris_virginica&quot;  &quot;01/12/1929&quot; &quot;S1&quot;    &quot;48.935966&quot; &quot;-64.840984&quot;
+## [136,] &quot;A145&quot;  &quot;iris_virginica&quot;  &quot;01/12/1929&quot; &quot;S3&quot;    &quot;48.329837&quot; &quot;-65.512333&quot;
+## [137,] &quot;A12 &quot;  &quot;iris_setosa&quot;     &quot;01/12/1929&quot; &quot;S1&quot;    &quot;48.935966&quot; &quot;-64.840984&quot;
+## [138,] &quot;A17&quot;   &quot;iris_setosa&quot;     &quot;13/02/1930&quot; &quot;S2&quot;    &quot;48.540502&quot; &quot;-64.766512&quot;
+## [139,] &quot;A20&quot;   &quot;iris_setosa&quot;     &quot;13/02/1930&quot; &quot;S2&quot;    &quot;48.540502&quot; &quot;-64.766512&quot;
+## [140,] &quot;A44&quot;   &quot;iris_setosa&quot;     &quot;14/02/1930&quot; &quot;S2&quot;    &quot;48.540502&quot; &quot;-64.766512&quot;
+## [141,] &quot;A50&quot;   &quot;iris_setosa&quot;     &quot;15/02/1930&quot; &quot;S2&quot;    &quot;48.540502&quot; &quot;-64.766512&quot;
+## [142,] &quot;A19&quot;   &quot;iris_setosa&quot;     &quot;01/12/1929&quot; &quot;S3&quot;    &quot;48.329837&quot; &quot;-65.512333&quot;
+## [143,] &quot;A22&quot;   &quot;iris_setosa&quot;     &quot;02/12/1929&quot; &quot;S3&quot;    &quot;48.329837&quot; &quot;-65.512333&quot;
+## [144,] &quot;A34&quot;   &quot;iris_setosa&quot;     &quot;03/12/1929&quot; &quot;S3&quot;    &quot;48.329837&quot; &quot;-65.512333&quot;
+## [145,] &quot;A1&quot;    &quot;iris_setosa&quot;     &quot;04/12/1929&quot; &quot;S3&quot;    &quot;48.329837&quot; &quot;-65.512333&quot;
+## [146,] &quot;A7&quot;    &quot;iris_setosa&quot;     &quot;05/12/1929&quot; &quot;S3&quot;    &quot;48.329837&quot; &quot;-65.512333&quot;
+## [147,] &quot;A84&quot;   &quot;Iris_versicolor&quot; &quot;01/12/1929&quot; &quot;S1&quot;    &quot;48.935966&quot; &quot;-64.840984&quot;
+## [148,] &quot;A53&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;S2&quot;    &quot;48.540502&quot; &quot;-64.766512&quot;
+## [149,] &quot;A98&quot;   &quot;Iris_versicolor&quot; &quot;13/02/1930&quot; &quot;S2&quot;    &quot;48.540502&quot; &quot;-64.766512&quot;
+## [150,] &quot;A94&quot;   &quot;Iris_versicolor&quot; &quot;05/12/1929&quot; &quot;S3&quot;    &quot;48.329837&quot; &quot;-65.512333&quot;
 ##        tamanho_petala largura_petala tamanho_sepala largura_sepala
 ##   [1,] &quot;1.7&quot;          &quot;0.2&quot;          &quot;5.4&quot;          &quot;3.4&quot;         
 ##   [2,] &quot;1.7&quot;          &quot;0.5&quot;          &quot;5.1&quot;          &quot;3.3&quot;         
@@ -841,12 +826,16 @@ dados</code></pre>
 <h2>A padronização dos nomes de espécies, assim como o formato da data
 foi realizado no arquivo único.</h2>
 <pre class="r"><code># Nomes das espécies e local 
-dados$spp[dados$spp == &quot;IRIS_VERSICOLOR&quot;] &lt;- &quot;Iris_versicolor&quot;
-dados$spp[dados$spp == &quot;IRIS_VIRGINICA&quot;] &lt;- &quot;Iris_virginica&quot;
-dados$spp[dados$spp == &quot;IRIS_SETOSA&quot;] &lt;- &quot;Iris_setosa&quot;
-dados$spp[dados$spp == &quot;iris_versicolor&quot;] &lt;- &quot;Iris_versicolor&quot;
-dados$spp[dados$spp == &quot;iris_virginica&quot;] &lt;- &quot;Iris_virginica&quot;
-dados$spp[dados$spp == &quot;iris_setosa&quot;] &lt;- &quot;Iris_setosa&quot;
+dados$spp[dados$spp == &quot;IRIS_VERSICOLOR&quot;] &lt;- &quot;Iris versicolor&quot;
+dados$spp[dados$spp == &quot;IRIS_VIRGINICA&quot;] &lt;- &quot;Iris virginica&quot;
+dados$spp[dados$spp == &quot;IRIS_SETOSA&quot;] &lt;- &quot;Iris setosa&quot;
+dados$spp[dados$spp == &quot;iris_versicolor&quot;] &lt;- &quot;Iris versicolor&quot;
+dados$spp[dados$spp == &quot;iris_virginica&quot;] &lt;- &quot;Iris virginica&quot;
+dados$spp[dados$spp == &quot;iris_setosa&quot;] &lt;- &quot;Iris setosa&quot;
+dados$spp[dados$spp == &quot;Iris_versicolor&quot;] &lt;- &quot;Iris versicolor&quot;
+dados$spp[dados$spp == &quot;Iris_virginica&quot;] &lt;- &quot;Iris virginica&quot;
+dados$spp[dados$spp == &quot;Iris_setosa&quot;] &lt;- &quot;Iris setosa&quot;
+
 
 dados$site[dados$site == &quot;S3&quot;] &lt;- &quot;Site3&quot;
 dados$site[dados$site == &quot;S2&quot;] &lt;- &quot;Site2&quot;
@@ -872,308 +861,312 @@ is.Date(dados$data) </code></pre>
 <h2>Ordenando a tabela pela coluna “spp”</h2>
 <pre class="r"><code>dados&lt;-dados[order(dados$spp),]
 dados</code></pre>
-<pre><code>##     amostra             spp       data  site latitude longitude tamanho_petala
-## 1       A21     Iris_setosa 1929-12-01 Site1 48935966 -64840984            1.7
-## 2       A24     Iris_setosa 1929-12-01 Site1 48935966 -64840984            1.7
-## 3       A33     Iris_setosa 1929-12-01 Site1 48935966 -64840984            1.5
-## 4       A29     Iris_setosa 1930-02-13 Site2 48540502 -64766512            1.4
-## 5       A35     Iris_setosa 1930-02-13 Site2 48540502 -64766512            1.5
-## 6        A5     Iris_setosa 1930-02-13 Site2 48540502 -64766512            1.4
-## 7       A14     Iris_setosa 1930-02-13 Site2 48540502 -64766512            1.1
-## 8       A37     Iris_setosa 1929-12-01 Site3 48329837 -65512333            1.3
-## 9       A10     Iris_setosa 1929-12-01 Site3 48329837 -65512333            1.5
-## 26      A18     Iris_setosa 1929-12-01 Site1 48935966 -64840984            5.1
-## 27      A45     Iris_setosa 1929-12-01 Site1 48935966 -64840984            5.1
-## 42      A27     Iris_setosa 1929-12-01 Site1 48935966 -64840984              5
-## 43      A40     Iris_setosa 1929-12-01 Site3 48329837 -65512333            5.1
-## 44      A43     Iris_setosa 1929-12-01 Site3 48329837 -65512333            4.4
-## 45      A46     Iris_setosa 1929-12-01 Site3 48329837 -65512333            4.8
-## 54      A13     Iris_setosa 1929-12-01 Site3 48329837 -65512333            4.8
-## 60      A16     Iris_setosa 1929-12-01 Site3 48329837 -65512333            5.7
-## 61      A28     Iris_setosa 1929-12-01 Site3 48329837 -65512333            5.2
-## 62       A4     Iris_setosa 1929-12-01 Site3 48329837 -65512333            4.6
-## 63      A48     Iris_setosa 1929-12-01 Site1 48935966 -64840984            4.6
-## 81      A15     Iris_setosa 1929-12-01 Site1 48935966 -64840984            5.8
-## 82      A25     Iris_setosa 1929-12-01 Site3 48329837 -65512333            4.8
-## 83      A26     Iris_setosa 1930-02-13 Site2 48540502 -64766512              5
-## 84       A3     Iris_setosa 1929-12-01 Site1 48935966 -64840984            4.7
-## 85      A32     Iris_setosa 1930-02-13 Site2 48540502 -64766512            5.4
-## 86      A41     Iris_setosa 1930-02-13 Site2 48540502 -64766512              5
-## 87      A47     Iris_setosa 1930-02-13 Site2 48540502 -64766512            5.1
-## 104     A42     Iris_setosa 1929-12-01 Site1 48935966 -64840984            4.5
-## 110     A30     Iris_setosa 1929-12-01 Site1 48935966 -64840984            4.7
-## 119     A39     Iris_setosa 1929-12-01 Site1 48935966 -64840984            4.4
-## 120     A36     Iris_setosa 1929-12-01 Site1 48935966 -64840984              5
-## 125     A49     Iris_setosa 1929-12-01 Site3 48329837 -65512333            5.3
-## 137    A12      Iris_setosa 1929-12-01 Site1 48935966 -64840984            1.6
-## 138     A17     Iris_setosa 1930-02-13 Site2 48540502 -64766512            1.3
-## 139     A20     Iris_setosa 1930-02-13 Site2 48540502 -64766512            1.5
-## 140     A44     Iris_setosa 1930-02-14 Site2 48540502 -64766512            1.6
-## 141     A50     Iris_setosa 1930-02-15 Site2 48540502 -64766512            1.4
-## 142     A19     Iris_setosa 1929-12-01 Site3 48329837 -65512333            1.7
-## 143     A22     Iris_setosa 1929-12-02 Site3 48329837 -65512333            1.5
-## 144     A34     Iris_setosa 1929-12-03 Site3 48329837 -65512333            1.4
-## 145      A1     Iris_setosa 1929-12-04 Site3 48329837 -65512333            1.4
-## 146      A7     Iris_setosa 1929-12-05 Site3 48329837 -65512333            1.4
-## 10      A63 Iris_versicolor 1929-12-01 Site1 48935966 -64840984              4
-## 11      A72 Iris_versicolor 1929-12-01 Site1 48935966 -64840984              4
-## 12      A90 Iris_versicolor 1929-12-01 Site1 48935966 -64840984              4
-## 13      A52 Iris_versicolor 1929-12-01 Site3 48329837 -65512333            4.5
-## 14      A67 Iris_versicolor 1929-12-01 Site3 48329837 -65512333            4.5
-## 46      A60 Iris_versicolor 1929-12-01 Site1 48935966 -64840984            5.2
-## 47      A56 Iris_versicolor 1930-02-13 Site2 48540502 -64766512            5.7
-## 48      A80 Iris_versicolor 1930-02-13 Site2 48540502 -64766512            5.7
-## 49      A92 Iris_versicolor 1930-02-13 Site2 48540502 -64766512            6.1
-## 50      A85 Iris_versicolor 1929-12-01 Site3 48329837 -65512333            5.4
-## 64      A51 Iris_versicolor 1929-12-01 Site1 48935966 -64840984              7
-## 65      A59 Iris_versicolor 1930-02-13 Site2 48540502 -64766512            6.6
-## 66      A61 Iris_versicolor 1929-12-01 Site3 48329837 -65512333              5
-## 67      A65 Iris_versicolor 1930-02-13 Site2 48540502 -64766512            5.6
-## 68      A68 Iris_versicolor 1930-02-13 Site2 48540502 -64766512            5.8
-## 69      A73 Iris_versicolor 1929-12-01 Site3 48329837 -65512333            6.3
-## 70      A77 Iris_versicolor 1930-02-13 Site2 48540502 -64766512            6.8
-## 71      A78 Iris_versicolor 1929-12-01 Site1 48935966 -64840984            6.7
-## 72      A83 Iris_versicolor 1930-02-13 Site2 48540502 -64766512            5.8
-## 73      A89 Iris_versicolor 1930-02-13 Site2 48540502 -64766512            5.6
-## 74      A97 Iris_versicolor 1929-12-01 Site3 48329837 -65512333            5.7
-## 75      A99 Iris_versicolor 1929-12-01 Site1 48935966 -64840984            5.1
-## 76     A100 Iris_versicolor 1929-12-01 Site3 48329837 -65512333            5.7
-## 88      A54 Iris_versicolor 1929-12-01 Site1 48935966 -64840984            5.5
-## 89      A58 Iris_versicolor 1929-12-01 Site3 48329837 -65512333            4.9
-## 90      A62 Iris_versicolor 1930-02-13 Site2 48540502 -64766512            5.9
-## 91      A70 Iris_versicolor 1929-12-01 Site3 48329837 -65512333            5.6
-## 92      A71 Iris_versicolor 1930-02-13 Site2 48540502 -64766512            5.9
-## 93      A76 Iris_versicolor 1929-12-01 Site3 48329837 -65512333            6.6
-## 94      A79 Iris_versicolor 1929-12-01 Site3 49329837 -65512333              6
-## 95      A81 Iris_versicolor 1929-12-01 Site1 48935966 -64840984            5.5
-## 96      A82 Iris_versicolor 1929-12-01 Site3 48329837 -65512333            5.5
-## 97      A87 Iris_versicolor 1929-12-01 Site1 48935966 -64840984            6.7
-## 98      A88 Iris_versicolor 1929-12-01 Site3 48329837 -65512333            6.3
-## 99      A93 Iris_versicolor 1929-12-01 Site1 48935966 -64840984            5.8
-## 100     A95 Iris_versicolor 1930-02-13 Site2 48540502 -64788512            5.6
-## 101     A75 Iris_versicolor 1929-12-01 Site1 48935966 -64840984            6.4
-## 102     A96 Iris_versicolor 1929-12-01 Site1 48935966 -64840984            5.7
-## 103     A91 Iris_versicolor 1929-12-01 Site3 48329837 -65512333            5.5
-## 107     A66 Iris_versicolor 1929-12-01 Site1 48935966 -64840984            6.7
-## 109     A57 Iris_versicolor 1929-12-01 Site1 48935966 -64840984            6.3
-## 111     A55 Iris_versicolor 1929-12-01 Site3 48329837 -65512333            6.5
-## 112     A74 Iris_versicolor 1930-02-13 Site2 48540502 -64766512            6.1
-## 121     A64 Iris_versicolor 1929-12-01 Site3 48329837 -65512333            6.1
-## 122     A69 Iris_versicolor 1929-12-01 Site1 48935966 -64840984            6.2
-## 124     A86 Iris_versicolor 1930-02-13 Site2 48540502 -64766512              6
-## 147     A84 Iris_versicolor 1929-12-01 Site1 48935966 -64840984            5.1
-## 148     A53 Iris_versicolor 1930-02-13 Site2 48540502 -64766512            4.9
-## 149     A98 Iris_versicolor 1930-02-13 Site2 48540502 -64766512            4.3
-## 150     A94 Iris_versicolor 1929-12-05 Site3 48329837 -65512333            3.3
-## 15     A108  Iris_virginica 1929-12-01 Site1 48935966 -64840984            6.3
-## 16     A111  Iris_virginica 1929-12-01 Site1 48935966 -64840984            5.1
-## 17     A117  Iris_virginica 1929-12-01 Site1 48935966 -64840984            5.5
-## 18     A120  Iris_virginica 1929-12-01 Site1 48935966 -64840984              5
-## 19     A122  Iris_virginica 1930-02-13 Site2 48540502 -64766512            4.9
-## 20     A131  Iris_virginica 1930-02-13 Site2 48540502 -64766512            6.1
-## 21     A140  Iris_virginica 1930-02-13 Site2 48540502 -64766512            5.4
-## 22     A109  Iris_virginica 1929-12-01 Site3 48329837 -65512333            5.8
-## 23     A115  Iris_virginica 1929-12-01 Site3 48329837 -65512333            5.1
-## 24     A136  Iris_virginica 1929-12-01 Site3 48329837 -65512333            6.1
-## 25     A142  Iris_virginica 1929-12-01 Site3 48329837 -65512333            5.1
-## 28     A102  Iris_virginica 1929-12-01 Site1 48935966 -64840984            5.8
-## 29     A141  Iris_virginica 1929-12-01 Site1 48935966 -64840984            6.7
-## 30     A101  Iris_virginica 1930-02-13 Site2 48540502 -64766512            6.3
-## 31     A116  Iris_virginica 1930-02-13 Site2 48540502 -64766512            6.4
-## 32     A138  Iris_virginica 1929-12-01 Site1 48935966 -64840984            6.4
-## 33     A118  Iris_virginica 1929-12-01 Site3 48329837 -65512333            7.7
-## 34     A124  Iris_virginica 1929-12-01 Site3 48329837 -65512333            6.3
-## 35     A139  Iris_virginica 1929-12-01 Site3 48329837 -65512333              6
-## 36     A104  Iris_virginica 1930-02-13 Site2 48540502 -64766512            6.3
-## 37     A119  Iris_virginica 1930-02-13 Site2 48540502 -64766512            7.7
-## 38     A134  Iris_virginica 1930-02-13 Site2 48540502 -64766512            6.3
-## 39     A140  Iris_virginica 1930-02-13 Site2 48540502 -64766512            6.9
-## 40     A143  Iris_virginica 1930-02-13 Site2 48540502 -64766512            5.8
-## 41     A112  Iris_virginica 1929-12-01 Site3 48329837 -65512333            6.4
-## 51     A103  Iris_virginica 1929-12-01 Site3 48329837 -65512333            7.1
-## 52     A121  Iris_virginica 1929-12-01 Site3 48329837 -65512333            6.9
-## 53     A123  Iris_virginica 1929-12-01 Site1 48935966 -64840984            7.7
-## 55     A134  Iris_virginica 1930-02-13 Site2 48540502 -64766512            6.3
-## 56     A137  Iris_virginica 1930-02-13 Site2 48540502 -64766512            6.3
-## 57     A138  Iris_virginica 1929-12-01 Site1 48935966 -64840984            6.4
-## 58     A148  Iris_virginica 1929-12-01 Site3 48329837 -65512333            6.5
-## 59     A150  Iris_virginica 1929-12-01 Site1 48935966 -64840984            5.9
-## 77     A119  Iris_virginica 1930-02-13  ste2 48540502 -64766512            7.7
-## 78     A127  Iris_virginica 1929-12-01 Site3 49329837 -65512333            6.2
-## 79     A129  Iris_virginica 1929-12-01 Site1 48935966 -64840984            6.4
-## 80     A149  Iris_virginica 1930-02-13 Site2 48540502 -64766512            6.2
-## 105    A105  Iris_virginica 1929-12-01 Site1 48935966 -64840984            6.5
-## 106    A113  Iris_virginica 1930-02-13 Site2 48540502 -64766512            6.8
-## 108    A147  Iris_virginica 1929-12-01 Site1 48935966 -64840984            6.3
-## 113    A104  Iris_virginica 1930-02-13 Site2 48540502 -64766512            6.3
-## 114    A123  Iris_virginica 1929-12-01 Site2 48935966 -64840984            7.7
-## 115    A132  Iris_virginica 1929-12-01 Site1 48935966 -64840984            7.9
-## 116    A130  Iris_virginica 1929-12-01 Site3 48329837 -65512333            7.2
-## 117    A128  Iris_virginica 1930-02-13 Site2 48540502 -64766512            6.1
-## 118    A133  Iris_virginica 1929-12-01 Site3 48329837 -65512333            6.4
-## 123    A112  Iris_virginica 1929-12-01 Site3 48329837 -65512333            6.4
-## 126    A114  Iris_virginica 1929-12-01 Site1 48935966 -64840984              5
-## 127    A135  Iris_virginica 1929-12-01 Site1 48935966 -64840984            5.6
-## 128    A144  Iris_virginica 1929-12-01 Site1 48935966 -64840984            5.9
-## 129    A107  Iris_virginica 1930-02-13 Site2 48540502 -64766512            4.5
-## 130    A110  Iris_virginica 1930-02-13 Site2  4854052 -64766512            6.1
-## 131    A125  Iris_virginica 1930-02-13 Site2 48540502 -64766512            5.7
-## 132    A143  Iris_virginica 1930-02-13 Site2 48540502 -64766512            5.1
-## 133    A146  Iris_virginica 1930-02-13 Site2 48540502 -64766512            5.2
-## 134    A106  Iris_virginica 1929-12-01 Site3 48329837 -65512333            6.6
-## 135    A117  Iris_virginica 1929-12-01 Site1 48935966 -64840984            5.5
-## 136    A145  Iris_virginica 1929-12-01 Site3 48329837 -65512333            5.7
-##     largura_petala tamanho_sepala largura_sepala
-## 1              0.2            5.4            3.4
-## 2              0.5            5.1            3.3
-## 3              0.1            5.2            4.1
-## 4              0.2            5.1            3.4
-## 5              0.2            4.9            3.1
-## 6              0.2              5            3.6
-## 7              0.1            4.3              3
-## 8              0.2            5.5            3.5
-## 9              0.1            4.9            3.1
-## 26             3.5            1.4            0.3
-## 27             3.8            1.9            0.4
-## 42             3.4            1.6            0.4
-## 43             3.4            1.5            0.2
-## 44             3.2            1.3            0.2
-## 45               3            1.4            0.3
-## 54               3            1.4            0.1
-## 60             4.4            1.5            0.4
-## 61             3.5            1.5            0.2
-## 62             3.1            1.5            0.2
-## 63             3.2            1.4            0.2
-## 81               4            1.2            0.2
-## 82             3.4            1.9            0.2
-## 83               3            1.6            0.2
-## 84             3.2            1.3            0.2
-## 85             3.4            1.5            0.4
-## 86             3.5            1.3            0.3
-## 87             3.8            1.6            0.2
-## 104            2.3            1.3            0.3
-## 110            3.2            1.6            0.2
-## 119              3            1.3            0.2
-## 120            3.2            1.2            0.2
-## 125            3.7            1.5            0.2
-## 137            0.2            4.8            3.4
-## 138            0.4            5.4            3.9
-## 139            0.3            5.1            3.8
-## 140            0.6              5            3.5
-## 141            0.2              5            3.3
-## 142            0.3            5.7            3.8
-## 143            0.4            5.1            3.7
-## 144            0.2            5.5            4.2
-## 145            0.2            5.1            3.5
-## 146            0.3            4.6            3.4
-## 10               1              6            2.2
-## 11             1.3            6.1            2.8
-## 12             1.3            5.5            2.5
-## 13             1.5            6.4            3.2
-## 14             1.5            5.6              3
-## 46             2.7            3.9            1.4
-## 47             2.8            4.5            1.3
-## 48             2.6            3.5              1
-## 49               3            4.6            1.4
-## 50               3            4.5            1.5
-## 64             3.2            4.7            1.4
-## 65             2.9            4.6            1.3
-## 66               2            3.5              1
-## 67             2.9            3.6            1.3
-## 68             2.7            4.1              1
-## 69             2.5            4.9            1.5
-## 70             2.8            4.8            1.4
-## 71               3              5            1.7
-## 72             2.7            3.9            1.2
-## 73               3            4.1            1.3
-## 74             2.9            4.2            1.3
-## 75             2.5              3            1.1
-## 76             2.8            4.1            1.3
-## 88             2.3              4            1.3
-## 89             2.4            3.3              1
-## 90               3            4.2            1.5
-## 91             2.5            3.9            1.1
-## 92             3.2            4.8            1.8
-## 93               3            4.4            1.4
-## 94             2.9            4.5            1.5
-## 95             2.4            3.8            1.1
-## 96             2.4            3.7              1
-## 97             3.1            4.7            1.5
-## 98             2.3            4.4            1.3
-## 99             2.6              4            1.2
-## 100            2.7            4.2            1.3
-## 101            2.9            4.3            1.3
-## 102              3            4.2            1.2
-## 103            2.6            4.4            1.2
-## 107            3.1            4.4            1.4
-## 109            3.3            4.7            1.6
-## 111            2.8            4.6            1.5
-## 112            2.8            4.7            1.2
-## 121            2.9            4.7            1.4
-## 122            2.2            4.5            1.5
-## 124            3.4            4.5            1.6
-## 147            1.6              6            2.7
-## 148            1.5            6.9            3.1
-## 149            1.3            6.2            2.9
-## 150              1              5            2.3
-## 15             1.8            7.3            2.9
-## 16               2            6.5            3.2
-## 17             1.8            6.5              3
-## 18             1.5              6            2.2
-## 19               2            5.6            2.8
-## 20             1.9            7.4            2.8
-## 21             2.1            6.9            3.1
-## 22             1.8            6.7            2.5
-## 23             2.4            5.8            2.8
-## 24             2.3            7.7              3
-## 25             2.3            6.9            3.1
-## 28             2.7            5.1            1.9
-## 29             3.1            5.6            2.4
-## 30             3.3              6            2.5
-## 31             3.2            5.3            2.3
-## 32             3.1            5.5            1.8
-## 33             3.8            6.7            2.2
-## 34             2.7            4.9            1.8
-## 35               3            4.8            1.8
-## 36             2.9            5.6            1.8
-## 37             2.6            6.9            2.3
-## 38             2.8            5.1            1.5
-## 39             3.1            5.4            2.1
-## 40             2.7            5.1            1.9
-## 41             2.7            5.3            1.9
-## 51               3            5.9            2.1
-## 52             3.2            5.7            2.3
-## 53             2.8            6.7              2
-## 55             2.8            5.1            1.5
-## 56             3.4            5.6            2.4
-## 57             3.1            5.5            1.8
-## 58               3            5.2              2
-## 59               3            5.1            1.8
-## 77             2.6            6.9            2.3
-## 78             2.8            4.8            1.8
-## 79             2.8            5.6            2.1
-## 80             3.4            5.4            2.3
-## 105              3            5.8            2.2
-## 106              3            5.5            2.1
-## 108            2.5              5            1.9
-## 113            2.9            5.6            1.8
-## 114            2.8            6.7              2
-## 115            3.8            6.4              2
-## 116              3            5.8            1.6
-## 117              3            4.9            1.8
-## 118            2.8            5.6            2.2
-## 123            2.7            5.3            1.9
-## 126              2            5.7            2.5
-## 127            1.4            6.1            2.6
-## 128            2.3            6.8            3.2
-## 129            1.7            4.9            2.5
-## 130            2.5            7.2            3.6
-## 131            2.1            6.7            3.3
-## 132            1.9            5.8            2.7
-## 133            2.3            6.7              3
-## 134            2.1            7.6              3
-## 135            1.8            6.5              3
-## 136            2.5            6.7            3.3</code></pre>
+<pre><code>##     amostra             spp       data  site  latitude  longitude
+## 1       A21     Iris setosa 1929-12-01 Site1 48.935966 -64.840984
+## 2       A24     Iris setosa 1929-12-01 Site1 48.935967 -64.840984
+## 3       A33     Iris setosa 1929-12-01 Site1 48.935968 -64.840984
+## 4       A29     Iris setosa 1930-02-13 Site2 48.540502 -64.766512
+## 5       A35     Iris setosa 1930-02-13 Site2 48.540502 -64.766513
+## 6        A5     Iris setosa 1930-02-13 Site2 48.540502 -64.766514
+## 7       A14     Iris setosa 1930-02-13 Site2 48.540502 -64.766515
+## 8       A37     Iris setosa 1929-12-01 Site3 48.329837 -65.512333
+## 9       A10     Iris setosa 1929-12-01 Site3 48.329837 -65.512333
+## 26      A18     Iris setosa 1929-12-01 Site1 48.935966 -64.840984
+## 27      A45     Iris setosa 1929-12-01 Site1 48.935966 -64.840984
+## 42      A27     Iris setosa 1929-12-01 Site1 48.935966 -64.840984
+## 43      A40     Iris setosa 1929-12-01 Site3 48.329837 -65.512333
+## 44      A43     Iris setosa 1929-12-01 Site3 48.329837 -65.512333
+## 45      A46     Iris setosa 1929-12-01 Site3 48.329837 -65.512333
+## 54      A13     Iris setosa 1929-12-01 Site3 48.329837 -65.512333
+## 60      A16     Iris setosa 1929-12-01 Site3 48.329837 -65.512333
+## 61      A28     Iris setosa 1929-12-01 Site3 48.329837 -65.512333
+## 62       A4     Iris setosa 1929-12-01 Site3 48.329837 -65.512333
+## 63      A48     Iris setosa 1929-12-01 Site1 48.935966 -64.840984
+## 81      A15     Iris setosa 1929-12-01 Site1 48.935966 -64.840984
+## 82      A25     Iris setosa 1929-12-01 Site3 48.329837 -65.512333
+## 83      A26     Iris setosa 1930-02-13 Site2 48.540502 -64.766512
+## 84       A3     Iris setosa 1929-12-01 Site1 48.935966 -64.840984
+## 85      A32     Iris setosa 1930-02-13 Site2 48.540502 -64.766512
+## 86      A41     Iris setosa 1930-02-13 Site2 48.540502 -64.766512
+## 87      A47     Iris setosa 1930-02-13 Site2 48.540502 -64.766512
+## 104     A42     Iris setosa 1929-12-01 Site1 48.935966 -64.840984
+## 110     A30     Iris setosa 1929-12-01 Site1 48.935966 -64.840984
+## 119     A39     Iris setosa 1929-12-01 Site1 48.935966 -64.840984
+## 120     A36     Iris setosa 1929-12-01 Site1 48.935966 -64.840984
+## 125     A49     Iris setosa 1929-12-01 Site3 48.329837 -65.512333
+## 137    A12      Iris setosa 1929-12-01 Site1 48.935966 -64.840984
+## 138     A17     Iris setosa 1930-02-13 Site2 48.540502 -64.766512
+## 139     A20     Iris setosa 1930-02-13 Site2 48.540502 -64.766512
+## 140     A44     Iris setosa 1930-02-14 Site2 48.540502 -64.766512
+## 141     A50     Iris setosa 1930-02-15 Site2 48.540502 -64.766512
+## 142     A19     Iris setosa 1929-12-01 Site3 48.329837 -65.512333
+## 143     A22     Iris setosa 1929-12-02 Site3 48.329837 -65.512333
+## 144     A34     Iris setosa 1929-12-03 Site3 48.329837 -65.512333
+## 145      A1     Iris setosa 1929-12-04 Site3 48.329837 -65.512333
+## 146      A7     Iris setosa 1929-12-05 Site3 48.329837 -65.512333
+## 10      A63 Iris versicolor 1929-12-01 Site1 48.935966 -64.840984
+## 11      A72 Iris versicolor 1929-12-01 Site1 48.935967 -64.840984
+## 12      A90 Iris versicolor 1929-12-01 Site1 48.935968 -64.840984
+## 13      A52 Iris versicolor 1929-12-01 Site3 48.329837 -65.512333
+## 14      A67 Iris versicolor 1929-12-01 Site3 48.329837 -65.512333
+## 46      A60 Iris versicolor 1929-12-01 Site1 48.935966 -64.840984
+## 47      A56 Iris versicolor 1930-02-13 Site2 48.540502 -64.766512
+## 48      A80 Iris versicolor 1930-02-13 Site2 48.540502 -64.766512
+## 49      A92 Iris versicolor 1930-02-13 Site2 48.540502 -64.766512
+## 50      A85 Iris versicolor 1929-12-01 Site3 48.329837 -65.512333
+## 64      A51 Iris versicolor 1929-12-01 Site1 48.935966 -64.840984
+## 65      A59 Iris versicolor 1930-02-13 Site2 48.540502 -64.766512
+## 66      A61 Iris versicolor 1929-12-01 Site3 48.329837 -65.512333
+## 67      A65 Iris versicolor 1930-02-13 Site2 48.540502 -64.766512
+## 68      A68 Iris versicolor 1930-02-13 Site2 48.540502 -64.766512
+## 69      A73 Iris versicolor 1929-12-01 Site3 48.329837 -65.512333
+## 70      A77 Iris versicolor 1930-02-13 Site2 48.540502 -64.766512
+## 71      A78 Iris versicolor 1929-12-01 Site1 48.935966 -64.840984
+## 72      A83 Iris versicolor 1930-02-13 Site2 48.540502 -64.766512
+## 73      A89 Iris versicolor 1930-02-13 Site2 48.540502 -64.766512
+## 74      A97 Iris versicolor 1929-12-01 Site3 48.329837 -65.512333
+## 75      A99 Iris versicolor 1929-12-01 Site1 48.935966 -64.840984
+## 76     A100 Iris versicolor 1929-12-01 Site3 48.329837 -65.512333
+## 88      A54 Iris versicolor 1929-12-01 Site1 48.935966 -64.840984
+## 89      A58 Iris versicolor 1929-12-01 Site3 48.329837 -65.512333
+## 90      A62 Iris versicolor 1930-02-13 Site2 48.540502 -64.766512
+## 91      A70 Iris versicolor 1929-12-01 Site3 48.329837 -65.512333
+## 92      A71 Iris versicolor 1930-02-13 Site2 48.540502 -64.766512
+## 93      A76 Iris versicolor 1929-12-01 Site3 48.329837 -65.512333
+## 94      A79 Iris versicolor 1929-12-01 Site3 49.329837 -65.512333
+## 95      A81 Iris versicolor 1929-12-01 Site1 48.935966 -64.840984
+## 96      A82 Iris versicolor 1929-12-01 Site3 48.329837 -65.512333
+## 97      A87 Iris versicolor 1929-12-01 Site1 48.935966 -64.840984
+## 98      A88 Iris versicolor 1929-12-01 Site3 48.329837 -65.512333
+## 99      A93 Iris versicolor 1929-12-01 Site1 48.935966 -64.840984
+## 100     A95 Iris versicolor 1930-02-13 Site2 48.540502 -64.788512
+## 101     A75 Iris versicolor 1929-12-01 Site1 48.935966 -64.840984
+## 102     A96 Iris versicolor 1929-12-01 Site1 48.935966 -64.840984
+## 103     A91 Iris versicolor 1929-12-01 Site3 48.329837 -65.512333
+## 107     A66 Iris versicolor 1929-12-01 Site1 48.935966 -64.840984
+## 109     A57 Iris versicolor 1929-12-01 Site1 48.935966 -64.840984
+## 111     A55 Iris versicolor 1929-12-01 Site3 48.329837 -65.512333
+## 112     A74 Iris versicolor 1930-02-13 Site2 48.540502 -64.766512
+## 121     A64 Iris versicolor 1929-12-01 Site3 48.329837 -65.512333
+## 122     A69 Iris versicolor 1929-12-01 Site1 48.935966 -64.840984
+## 124     A86 Iris versicolor 1930-02-13 Site2 48.540502 -64.766512
+## 147     A84 Iris versicolor 1929-12-01 Site1 48.935966 -64.840984
+## 148     A53 Iris versicolor 1930-02-13 Site2 48.540502 -64.766512
+## 149     A98 Iris versicolor 1930-02-13 Site2 48.540502 -64.766512
+## 150     A94 Iris versicolor 1929-12-05 Site3 48.329837 -65.512333
+## 15     A108  Iris virginica 1929-12-01 Site1 48.935966 -64.840984
+## 16     A111  Iris virginica 1929-12-01 Site1 48.935966 -64.840984
+## 17     A117  Iris virginica 1929-12-01 Site1 48.935966 -64.840984
+## 18     A120  Iris virginica 1929-12-01 Site1 48.935966 -64.840984
+## 19     A122  Iris virginica 1930-02-13 Site2 48.540502 -64.766512
+## 20     A131  Iris virginica 1930-02-13 Site2 48.540502 -64.766513
+## 21     A140  Iris virginica 1930-02-13 Site2 48.540502 -64.766514
+## 22     A109  Iris virginica 1929-12-01 Site3 48.329837 -65.512333
+## 23     A115  Iris virginica 1929-12-01 Site3 48.329837 -65.512333
+## 24     A136  Iris virginica 1929-12-01 Site3 48.329837 -65.512333
+## 25     A142  Iris virginica 1929-12-01 Site3 48.329837 -65.512333
+## 28     A102  Iris virginica 1929-12-01 Site1 48.935966 -64.840984
+## 29     A141  Iris virginica 1929-12-01 Site1 48.935966 -64.840984
+## 30     A101  Iris virginica 1930-02-13 Site2 48.540502 -64.766512
+## 31     A116  Iris virginica 1930-02-13 Site2 48.540502 -64.766512
+## 32     A138  Iris virginica 1929-12-01 Site1 48.935966 -64.840984
+## 33     A118  Iris virginica 1929-12-01 Site3 48.329837 -65.512333
+## 34     A124  Iris virginica 1929-12-01 Site3 48.329837 -65.512333
+## 35     A139  Iris virginica 1929-12-01 Site3 48.329837 -65.512333
+## 36     A104  Iris virginica 1930-02-13 Site2 48.540502 -64.766512
+## 37     A119  Iris virginica 1930-02-13 Site2 48.540502 -64.766512
+## 38     A134  Iris virginica 1930-02-13 Site2 48.540502 -64.766512
+## 39     A140  Iris virginica 1930-02-13 Site2 48.540502 -64.766512
+## 40     A143  Iris virginica 1930-02-13 Site2 48.540502 -64.766512
+## 41     A112  Iris virginica 1929-12-01 Site3 48.329837 -65.512333
+## 51     A103  Iris virginica 1929-12-01 Site3 48.329837 -65.512333
+## 52     A121  Iris virginica 1929-12-01 Site3 48.329837 -65.512333
+## 53     A123  Iris virginica 1929-12-01 Site1 48.935966 -64.840984
+## 55     A134  Iris virginica 1930-02-13 Site2 48.540502 -64.766512
+## 56     A137  Iris virginica 1930-02-13 Site2 48.540502 -64.766512
+## 57     A138  Iris virginica 1929-12-01 Site1 48.935966 -64.840984
+## 58     A148  Iris virginica 1929-12-01 Site3 48.329837 -65.512333
+## 59     A150  Iris virginica 1929-12-01 Site1 48.935966 -64.840984
+## 77     A119  Iris virginica 1930-02-13  ste2 48.540502 -64.766512
+## 78     A127  Iris virginica 1929-12-01 Site3 49.329837 -65.512333
+## 79     A129  Iris virginica 1929-12-01 Site1 48.935966  -64840984
+## 80     A149  Iris virginica 1930-02-13 Site2 48.540502 -64.766512
+## 105    A105  Iris virginica 1929-12-01 Site1 48.935966 -64.840984
+## 106    A113  Iris virginica 1930-02-13 Site2 48.540502 -64.766512
+## 108    A147  Iris virginica 1929-12-01 Site1 48.935966 -64.840984
+## 113    A104  Iris virginica 1930-02-13 Site2 48.540502 -64.766512
+## 114    A123  Iris virginica 1929-12-01 Site2 48.935966 -64.840984
+## 115    A132  Iris virginica 1929-12-01 Site1 48.935966 -64.840984
+## 116    A130  Iris virginica 1929-12-01 Site3 48.329837 -65.512333
+## 117    A128  Iris virginica 1930-02-13 Site2 48.540502 -64.766512
+## 118    A133  Iris virginica 1929-12-01 Site3 48.329837 -65.512333
+## 123    A112  Iris virginica 1929-12-01 Site3 48.329837 -65.512333
+## 126    A114  Iris virginica 1929-12-01 Site1 48.935966 -64.840984
+## 127    A135  Iris virginica 1929-12-01 Site1 48.935966 -64.840984
+## 128    A144  Iris virginica 1929-12-01 Site1 48.935966 -64.840984
+## 129    A107  Iris virginica 1930-02-13 Site2 48.540502 -64.766512
+## 130    A110  Iris virginica 1930-02-13 Site2  48.54052 -64.766512
+## 131    A125  Iris virginica 1930-02-13 Site2 48.540502 -64.766512
+## 132    A143  Iris virginica 1930-02-13 Site2 48.540502 -64.766512
+## 133    A146  Iris virginica 1930-02-13 Site2 48.540502 -64.766512
+## 134    A106  Iris virginica 1929-12-01 Site3 48.329837 -65.512333
+## 135    A117  Iris virginica 1929-12-01 Site1 48.935966 -64.840984
+## 136    A145  Iris virginica 1929-12-01 Site3 48.329837 -65.512333
+##     tamanho_petala largura_petala tamanho_sepala largura_sepala
+## 1              1.7            0.2            5.4            3.4
+## 2              1.7            0.5            5.1            3.3
+## 3              1.5            0.1            5.2            4.1
+## 4              1.4            0.2            5.1            3.4
+## 5              1.5            0.2            4.9            3.1
+## 6              1.4            0.2              5            3.6
+## 7              1.1            0.1            4.3              3
+## 8              1.3            0.2            5.5            3.5
+## 9              1.5            0.1            4.9            3.1
+## 26             5.1            3.5            1.4            0.3
+## 27             5.1            3.8            1.9            0.4
+## 42               5            3.4            1.6            0.4
+## 43             5.1            3.4            1.5            0.2
+## 44             4.4            3.2            1.3            0.2
+## 45             4.8              3            1.4            0.3
+## 54             4.8              3            1.4            0.1
+## 60             5.7            4.4            1.5            0.4
+## 61             5.2            3.5            1.5            0.2
+## 62             4.6            3.1            1.5            0.2
+## 63             4.6            3.2            1.4            0.2
+## 81             5.8              4            1.2            0.2
+## 82             4.8            3.4            1.9            0.2
+## 83               5              3            1.6            0.2
+## 84             4.7            3.2            1.3            0.2
+## 85             5.4            3.4            1.5            0.4
+## 86               5            3.5            1.3            0.3
+## 87             5.1            3.8            1.6            0.2
+## 104            4.5            2.3            1.3            0.3
+## 110            4.7            3.2            1.6            0.2
+## 119            4.4              3            1.3            0.2
+## 120              5            3.2            1.2            0.2
+## 125            5.3            3.7            1.5            0.2
+## 137            1.6            0.2            4.8            3.4
+## 138            1.3            0.4            5.4            3.9
+## 139            1.5            0.3            5.1            3.8
+## 140            1.6            0.6              5            3.5
+## 141            1.4            0.2              5            3.3
+## 142            1.7            0.3            5.7            3.8
+## 143            1.5            0.4            5.1            3.7
+## 144            1.4            0.2            5.5            4.2
+## 145            1.4            0.2            5.1            3.5
+## 146            1.4            0.3            4.6            3.4
+## 10               4              1              6            2.2
+## 11               4            1.3            6.1            2.8
+## 12               4            1.3            5.5            2.5
+## 13             4.5            1.5            6.4            3.2
+## 14             4.5            1.5            5.6              3
+## 46             5.2            2.7            3.9            1.4
+## 47             5.7            2.8            4.5            1.3
+## 48             5.7            2.6            3.5              1
+## 49             6.1              3            4.6            1.4
+## 50             5.4              3            4.5            1.5
+## 64               7            3.2            4.7            1.4
+## 65             6.6            2.9            4.6            1.3
+## 66               5              2            3.5              1
+## 67             5.6            2.9            3.6            1.3
+## 68             5.8            2.7            4.1              1
+## 69             6.3            2.5            4.9            1.5
+## 70             6.8            2.8            4.8            1.4
+## 71             6.7              3              5            1.7
+## 72             5.8            2.7            3.9            1.2
+## 73             5.6              3            4.1            1.3
+## 74             5.7            2.9            4.2            1.3
+## 75             5.1            2.5              3            1.1
+## 76             5.7            2.8            4.1            1.3
+## 88             5.5            2.3              4            1.3
+## 89             4.9            2.4            3.3              1
+## 90             5.9              3            4.2            1.5
+## 91             5.6            2.5            3.9            1.1
+## 92             5.9            3.2            4.8            1.8
+## 93             6.6              3            4.4            1.4
+## 94               6            2.9            4.5            1.5
+## 95             5.5            2.4            3.8            1.1
+## 96             5.5            2.4            3.7              1
+## 97             6.7            3.1            4.7            1.5
+## 98             6.3            2.3            4.4            1.3
+## 99             5.8            2.6              4            1.2
+## 100            5.6            2.7            4.2            1.3
+## 101            6.4            2.9            4.3            1.3
+## 102            5.7              3            4.2            1.2
+## 103            5.5            2.6            4.4            1.2
+## 107            6.7            3.1            4.4            1.4
+## 109            6.3            3.3            4.7            1.6
+## 111            6.5            2.8            4.6            1.5
+## 112            6.1            2.8            4.7            1.2
+## 121            6.1            2.9            4.7            1.4
+## 122            6.2            2.2            4.5            1.5
+## 124              6            3.4            4.5            1.6
+## 147            5.1            1.6              6            2.7
+## 148            4.9            1.5            6.9            3.1
+## 149            4.3            1.3            6.2            2.9
+## 150            3.3              1              5            2.3
+## 15             6.3            1.8            7.3            2.9
+## 16             5.1              2            6.5            3.2
+## 17             5.5            1.8            6.5              3
+## 18               5            1.5              6            2.2
+## 19             4.9              2            5.6            2.8
+## 20             6.1            1.9            7.4            2.8
+## 21             5.4            2.1            6.9            3.1
+## 22             5.8            1.8            6.7            2.5
+## 23             5.1            2.4            5.8            2.8
+## 24             6.1            2.3            7.7              3
+## 25             5.1            2.3            6.9            3.1
+## 28             5.8            2.7            5.1            1.9
+## 29             6.7            3.1            5.6            2.4
+## 30             6.3            3.3              6            2.5
+## 31             6.4            3.2            5.3            2.3
+## 32             6.4            3.1            5.5            1.8
+## 33             7.7            3.8            6.7            2.2
+## 34             6.3            2.7            4.9            1.8
+## 35               6              3            4.8            1.8
+## 36             6.3            2.9            5.6            1.8
+## 37             7.7            2.6            6.9            2.3
+## 38             6.3            2.8            5.1            1.5
+## 39             6.9            3.1            5.4            2.1
+## 40             5.8            2.7            5.1            1.9
+## 41             6.4            2.7            5.3            1.9
+## 51             7.1              3            5.9            2.1
+## 52             6.9            3.2            5.7            2.3
+## 53             7.7            2.8            6.7              2
+## 55             6.3            2.8            5.1            1.5
+## 56             6.3            3.4            5.6            2.4
+## 57             6.4            3.1            5.5            1.8
+## 58             6.5              3            5.2              2
+## 59             5.9              3            5.1            1.8
+## 77             7.7            2.6            6.9            2.3
+## 78             6.2            2.8            4.8            1.8
+## 79             6.4            2.8            5.6            2.1
+## 80             6.2            3.4            5.4            2.3
+## 105            6.5              3            5.8            2.2
+## 106            6.8              3            5.5            2.1
+## 108            6.3            2.5              5            1.9
+## 113            6.3            2.9            5.6            1.8
+## 114            7.7            2.8            6.7              2
+## 115            7.9            3.8            6.4              2
+## 116            7.2              3            5.8            1.6
+## 117            6.1              3            4.9            1.8
+## 118            6.4            2.8            5.6            2.2
+## 123            6.4            2.7            5.3            1.9
+## 126              5              2            5.7            2.5
+## 127            5.6            1.4            6.1            2.6
+## 128            5.9            2.3            6.8            3.2
+## 129            4.5            1.7            4.9            2.5
+## 130            6.1            2.5            7.2            3.6
+## 131            5.7            2.1            6.7            3.3
+## 132            5.1            1.9            5.8            2.7
+## 133            5.2            2.3            6.7              3
+## 134            6.6            2.1            7.6              3
+## 135            5.5            1.8            6.5              3
+## 136            5.7            2.5            6.7            3.3</code></pre>
+<div id="o-arquivo-final-em-formato-.csv-gerado-por-essa-atividade-assim-como-as-tabelas-individuais-podem-ser-consultadas-aqui" class="section level3">
+<h3>O arquivo final em formato .csv gerado por essa atividade, assim
+como as tabelas individuais, podem ser consultadas <a href="https://github.com/Jhooreis/science.colab/tree/main/data">Aqui</a></h3>
+</div>
 </div>
 </div>
 
