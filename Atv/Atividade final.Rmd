@@ -202,3 +202,5 @@ ggplotly(cc2)
 
 ### O script completo dessa atividade em formato .Rmd pode ser consultado [Aqui](https://github.com/Jhooreis/science.colab/blob/main/Atv/Atividade%20final.Rmd)
 
+### Caso tenha lido o trabalho até essa parte, um bônus: Durante uma de nossas aulas, houve o questionamento se haveria a necessidade de selecionarmos manualmente todas as alterações na aba "git" antes de realizar o commit. Obtivemos um sim como resposta. O grande volume de alterações que tive de fazer, minha preguiça e curiosidade patológica encontraram uma solução: no terminal, digite o comando "git add ." (com espaço) e tudo se resolveu. Amém!
+
