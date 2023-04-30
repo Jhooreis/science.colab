@@ -1,0 +1,21 @@
+---
+title: "On	Reproducible	AI:	Towards	Reproducible	Research,	
+Open	Science,	and	Digital	Scholarship	in	AI	Publications"
+author: "Jônatha Reis"
+date: "2023-04-30"
+output: pdf_document
+template: quarterly-report.tex
+---
+```{=html}
+<style>
+body{
+text-align:justify}
+</style>
+
+```
+
+
+# Dentre os diversos preceitos que estruturam a ciência aberta, a reprodutibilidade desempenha um papel crucial ao permitir que os resultados sejam reproduzidos e validados, promovendo uma pesquisa mais robusta e confiável. Alicerçado sobre esses conceitos, o artigo destaca que a reprodução de pesquisas é um elemento essencial para o avanço da IA e para garantir a confiabilidade e replicabilidade dos resultados publicados. No entanto, a reprodução de pesquisas em IA pode ser um desafio devido à complexidade dos modelos, à falta de disponibilidade de dados e ao uso de recursos computacionais intensivos. Dessa forma, é necessário facilitar a reprodução de pesquisas em IA por meio de práticas e diretrizes adequadas, como a disponibilização da documentação completa dos experimentos, versões de software e bibliotecas utilizadas, além da disponibilidade dos dados utilizados. Além disso, é importante compartilhar amplamente os códigos usados, dados e resultados de forma acessível e transparente. Isso inclui o uso de repositórios públicos para compartilhar o código-fonte dos modelos, a utilização de formatos de dados abertos e a disponibilização de conjuntos de dados para a comunidade científica. A reprodução de pesquisas em IA é um desafio significativo, mas essencial para avançar o campo de forma confiável.
+
+
+###  Consulte o [texto](https://www.isi.edu/~gil/papers/gundersen-etal-aimagazine18.pdf) na íntegra. Além disso, consulte também o arquivo em .Rmd
